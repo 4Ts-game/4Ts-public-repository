@@ -1,0 +1,1 @@
+resultAdvanced(['C1-ABA-CSS-TASK'],[error('098',_)],[],[]).

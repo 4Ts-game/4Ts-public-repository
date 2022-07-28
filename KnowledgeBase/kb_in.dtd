@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!ELEMENT board (context, goals, content, flags?, columns)>
+<!ELEMENT context (#PCDATA)>
+<!ELEMENT goals (goal*)>
+<!ELEMENT goal (#PCDATA)>
+<!ELEMENT content (#PCDATA)>
+<!ELEMENT flags (flag*)>
+<!ELEMENT flag (#PCDATA | EMPTY)>
+<!ELEMENT columns (column+)>
+<!ELEMENT column (csw-technique, aba-css-task, aba-css-team,
+                   aba-css-tec1,  aba-css-tec2, abb-css-task,
+                   abb-css-team,  abb-css-tec1, abb-css-tec2)> 
+<!ELEMENT csw-technique (technique)>
+<!ELEMENT technique (#PCDATA | EMPTY)>
+<!ELEMENT aba-css-task (#PCDATA | EMPTY)>
+<!ELEMENT aba-css-team (#PCDATA | EMPTY)>
+<!ELEMENT aba-css-tec1 (#PCDATA | EMPTY)>
+<!ELEMENT aba-css-tec2 (#PCDATA | EMPTY)>
+<!ELEMENT abb-css-task (#PCDATA | EMPTY)>
+<!ELEMENT abb-css-team (#PCDATA | EMPTY)>
+<!ELEMENT abb-css-tec1 (#PCDATA | EMPTY)>
+<!ELEMENT abb-css-tec2 (#PCDATA | EMPTY)>
+<!ATTLIST column id CDATA #REQUIRED>
+<!ATTLIST board level (base | advanced) "base">
+

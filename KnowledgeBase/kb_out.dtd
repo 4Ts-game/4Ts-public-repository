@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!ELEMENT kb-response (inconsistent-slots, missing-cards, suggested-cards)>
+<!ELEMENT inconsistent-slots slot*>
+<!ELEMENT missing-cards card-in-slot*>
+<!ELEMENT card-in-slot (card, slot)>
+<!ELEMENT suggested-cards card*>
+<!ELEMENT card (#PCDATA)>
+<!ELEMENT slot (#PCDATA)>

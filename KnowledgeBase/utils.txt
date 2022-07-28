@@ -1,0 +1,58 @@
+technologyCardInEitherSlot(+TechnologySlot1, +TechnologySlot2, +Card,
+			   +SlotFmt, +ColNumber)
+
+notBothEmpty(+[CardInSlot1, CardInSLot2] +SlotNameFmt, +ColNumber)
+
+slotHasCardOrIsEmpty(+CardInSlot, +ExpectedCards, +SlotNameFmt, +ColNumber)
+
+t1AndT2XorT3(+TechnologySlotA, +TechnologySlotB,
+	     +PrimaryTechnology, +ListOfDisjunctiveSecondaryTechnologies,
+	     +SlotNameFmt, +ColNumber)
+t1AndT2XorT3(+TechnologySlotA, +TechnologySlotB,
+	     +ListOfPrimaryTechnologies, +ListOfSecondaryTechnologies,
+	     +SlotNameFmt, +ColNumber, +Row)
+
+quando c'è una sola tecnologia che può stare in uno dei due slot, e l'altro deve essere vuoto:
+  technologyCardInEitherSlot(TechnologyABA11, TechnologyABA21, SelStudMatId,
+                             'C~d-ABA-CSS-TEC~d', ColNumber1),
+			     
+quando c'è una tecnologia primaria e due secondarie in alternativa:
+  %% TechnologyABA12 and TechnologyABA22 should be empty or
+  %%  PRESENTATION SOFTWARE in one, and Forum or No Technology in the other
+  t1AndT2XorT3(TechnologyABA12, TechnologyABA22, PresSwId, [ForumId, NoTechnId],
+	       'C~d-ABA-CSS-TEC~d', ColNumber2),
+
+quando ci sono due tecnologie in alternativa su un unico slot (l'altro è libero):
+  slotHasCardOrIsEmpty(TechnologyABB12, [VideoconfId, ProjectorId], 'C~d-ABB-CSS-TEC1', ColNumber2),
+  slotHasCardOrIsEmpty(TechnologyABB22, [VideoconfId, ProjectorId], 'C~d-ABB-CSS-TEC2', ColNumber2),
+  notBothEmpty([TechnologyABB12, TechnologyABB22], 'C~d-ABB-CSS-TEC~d', ColNumber2),
+
+	     
+  task(WriteRepId, 'WRITING A REPORT'),
+  task(StudyingId, 'STUDYING'),
+  task(FindMatId, 'FINDING MATERIALS'),
+  task(PrepLQId, 'PREPARING A LIST OF QUESTIONS'),
+  task(CommentId, 'COMMENTING ON SOMEONE ELSE\'S WORK'),
+  task(PrepPresId, 'PREPARING A PRESENTATION'),
+  task(CarryId, 'CARRYING OUT AN ASSIGNMENT'),
+  task(GivPresId, 'GIVING A PRESENTATION'),
+  task(SolProbId, 'SOLVING A PROBLEM'),
+  task(IntervId, 'INTERVIEWING AN EXPERT'),
+  task(AssumeId, 'ASSUMING ROLES'),
+  task(ProdArtId, 'PRODUCING AN ARTEFACT'),
+  task(DebId, 'DEBATING'),
+
+  team(IndividualId, 'INDIVIDUAL LEARNERS'),
+  team(PairsId, 'PAIRS'),
+  team(SmallGrId, 'SMALL GROUPS'),
+  team(PlenaryId, 'PLENARY'),
+  
+  technology(SelStudMatId, 'SELECTED STUDY MATERIALS'),
+  technology(ForumId, 'FORUM'),
+  technology(PresSwId, 'PRESENTATION SOFTWARE'),
+  technology(NoTechnId, 'NO TECHNOLOGY'),
+  technology(ProjectorId, 'PROJECTOR'),
+  technology(VideoconfId, 'VIDEOCONFERENCING SYSTEM'),
+  technology(TextEdId, 'TEXT EDITOR'),
+  technology(MatToolsId, 'MATERIALS AND TOOLS FOR PRACTICE'),
+  technology(SrcMatId, 'SOURCE OF MATERIALS FOR LEARNING'),

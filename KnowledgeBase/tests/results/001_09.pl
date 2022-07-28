@@ -1,0 +1,1 @@
+result([],[],[slotCardPair('C3-ABB-CSS-TASK','108'),slotCardPair('C3-ABB-CSS-TEAM','206'),slotCardPair('C3-ABB-CSS-TEC1','305'),slotCardPair('C3-ABB-CSS-TEC1','309'),slotCardPair('C3-ABB-CSS-TEC1','310'),slotCardPair('C3-ABB-CSS-TEC2','305'),slotCardPair('C3-ABB-CSS-TEC2','309'),slotCardPair('C3-ABB-CSS-TEC2','310')],[]).

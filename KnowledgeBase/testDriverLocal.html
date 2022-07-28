@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>4Ts Game Knowledge Base - test driver</title>
+<style>
+div {
+  padding: 20px;
+}
+th {
+  height: 30px;
+}
+td {
+  padding: 0px;
+  height: 80px;
+}
+tr {
+  text-align: center;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+select {
+  font-size: 10px;
+  width: 150px;
+}
+</style>
+<script>
+function levelChanged() {
+  var x = document.getElementById("levelSelect").value;
+  if(x == "advanced") {
+      document.getElementById("C1-CSW-TECHNIQUE").setAttribute("disabled", "true");
+      document.getElementById("C2-CSW-TECHNIQUE").setAttribute("disabled", "true");
+      document.getElementById("C3-CSW-TECHNIQUE").setAttribute("disabled", "true");
+      document.getElementById("C4-CSW-TECHNIQUE").setAttribute("disabled", "true");
+      document.getElementById("techniqueSlot1").style.backgroundColor = "gray";
+      document.getElementById("techniqueSlot2").style.backgroundColor = "gray";
+      document.getElementById("techniqueSlot3").style.backgroundColor = "gray";
+      document.getElementById("techniqueSlot4").style.backgroundColor = "gray";
+      // document.getElementById("checkCompleteness").setAttribute("disabled", "true");
+  } else {
+      document.getElementById("C1-CSW-TECHNIQUE").removeAttribute("disabled");
+      document.getElementById("C2-CSW-TECHNIQUE").removeAttribute("disabled");
+      document.getElementById("C3-CSW-TECHNIQUE").removeAttribute("disabled");
+      document.getElementById("C4-CSW-TECHNIQUE").removeAttribute("disabled");
+      document.getElementById("techniqueSlot1").style.backgroundColor = "cyan";
+      document.getElementById("techniqueSlot2").style.backgroundColor = "cyan";
+      document.getElementById("techniqueSlot3").style.backgroundColor = "cyan";
+      document.getElementById("techniqueSlot4").style.backgroundColor = "cyan";
+      // document.getElementById("checkCompleteness").removeAttribute("disabled");
+  }
+}
+</script>
+
+</head>
+<body>
+<h1>4Ts Game Knowledge Base - test driver - V 4.00</h1>
+<form action="http://localhost:8000/ping"  method="post" target="_blank" >
+  <div>
+    <label>Server: localhost:8000<label/>
+    <input type="submit" value="ping server"/>
+  </div>
+</form>
+
+
+<hr>
+
+
+<form method="get" target="_blank" >
+
+<table style="border: 1px solid black;" >
+<tr>
+  <th style="border-left: 1px solid black;">Flags</td>
+  <th style="border-left: 1px solid black;">Context</td>
+  <th style="border-left: 1px solid black;">Objectives</td>
+  <th style="border-left: 1px solid black;">Content</td>
+</tr>
+<tr>
+  <td style="border-left: 1px solid black; text-align: left;">
+    &nbsp;Check completeness&nbsp;
+    <input type="checkbox" name="checkCompleteness" id="checkCompleteness" value="true">
+    <br />
+    &nbsp;Level&nbsp;
+    <select style="width:80px;" name="level" id="levelSelect" onchange="levelChanged()">
+        <option value="base" selected>&nbsp;</option>
+        <option value="base">base</option>
+        <option value="advanced">advanced</option>
+    </select>
+  </td>
+  <td style="border-left: 1px solid black;">
+   <textarea rows='2' cols='42' name='context'>...</textarea>
+  </td>
+  <td style="border-left: 1px solid black;">
+   <textarea rows='2' cols='42' name='objectives'>...</textarea>
+  </td>
+  <td style="border-left: 1px solid black;">
+   <textarea rows='2' cols='42' name='content'>...</textarea>
+  </td>
+</tr>
+</table>
+
+<table style="border: 1px solid black;" >
+<tr>
+  <th style="border-left: 1px solid black;">Week 1</td>
+  <th style="border-left: 1px solid black;">Week 2</td>
+  <th style="border-left: 1px solid black;">Week 3</td>
+  <th style="border-left: 1px solid black;">Week 4</td>
+</tr>
+<tr id="techniqueRow">      <!-- TECHNIQUE -->
+  <td style="border-left: 1px solid black;">
+      <table>
+      <tr>      <!-- TECHNIQUE 1st week -->
+        <td style="background-color: cyan;" id="techniqueSlot1">Technique:<br />
+	<select style="width:300px;" name="C1-CSW-TECHNIQUE" id="C1-CSW-TECHNIQUE">
+	<!-- 2090319: values changed to represent individual card ids (as for  https://docs.google.com/spreadsheets/d/1vbKRP_QAa5aDEWWEEgJravq-R_m_ZlHpkclr3hm7-lw/edit#gid=0) rather than card-type ids
+	-->
+	  <option value="" selected>&nbsp;</option>
+	  <option value="22">JIGSAW - PHASE I (EXPERT GROUPS)</option>
+	  <option value="37">JIGSAW - PHASE II (JIGSAW GROUPS)</option>
+	  <option value="38">PEER REVIEW - PHASE I</option>
+	  <option value="39">PEER REVIEW - PHASE II</option>
+	  <option value="40">PEER REVIEW - PHASE III</option>
+	  <option value="41">CASE STUDY - PHASE I</option>
+	  <option value="42">CASE STUDY - PHASE II</option>
+	  <option value="23">PYRAMID (FOR LIST PREPARATION) - PHASE I</option>
+	  <option value="43">PYRAMID (FOR LIST PREPARATION) - PHASE II</option>
+	  <option value="44">PYRAMID (FOR LIST PREPARATION) - PHASE III</option>
+	  <option value="45">PYRAMID (FOR PROBLEM SOLVING) - PHASE I</option>
+	  <option value="46">PYRAMID (FOR PROBLEM SOLVING) - PHASE II</option>
+	  <option value="47">PYRAMID (FOR PROBLEM SOLVING) - PHASE III</option>
+	  <option value="48">DISCUSSION - PHASE I (ALL CASES)</option>
+	  <option value="49">DISCUSSION (TOWARDS ASSIGNMENT) - PHASE II</option>
+	  <option value="50">DISCUSSION (TOWARDS ARTEFACT) - PHASE II</option>
+	  <option value="51">DISCUSSION (TOWARDS TEXT) - PHASE II</option>
+	  <option value="52">ROLE PLAY - PHASE I</option>
+	  <option value="53">ROLE PLAY - PHASE II</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+        <!--td style="background-color: cyan;">Phase:<br /><input type="text" name="C1-CSW-PHASE" size="3" /></td-->
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+      <table>
+      <tr>      <!-- TECHNIQUE 2nd week -->
+        <td style="background-color: cyan;" id="techniqueSlot2">Technique:<br />
+	<select style="width:300px;" name="C2-CSW-TECHNIQUE"  id="C2-CSW-TECHNIQUE">
+	  <option value="" selected>&nbsp;</option>
+	  <option value="22">JIGSAW - PHASE I (EXPERT GROUPS)</option>
+	  <option value="37">JIGSAW - PHASE II (JIGSAW GROUPS)</option>
+	  <option value="38">PEER REVIEW - PHASE I</option>
+	  <option value="39">PEER REVIEW - PHASE II</option>
+	  <option value="40">PEER REVIEW - PHASE III</option>
+	  <option value="41">CASE STUDY - PHASE I</option>
+	  <option value="42">CASE STUDY - PHASE II</option>
+	  <option value="23">PYRAMID (FOR LIST PREPARATION) - PHASE I</option>
+	  <option value="43">PYRAMID (FOR LIST PREPARATION) - PHASE II</option>
+	  <option value="44">PYRAMID (FOR LIST PREPARATION) - PHASE III</option>
+	  <option value="45">PYRAMID (FOR PROBLEM SOLVING) - PHASE I</option>
+	  <option value="46">PYRAMID (FOR PROBLEM SOLVING) - PHASE II</option>
+	  <option value="47">PYRAMID (FOR PROBLEM SOLVING) - PHASE III</option>
+	  <option value="48">DISCUSSION - PHASE I (ALL CASES)</option>
+	  <option value="49">DISCUSSION (TOWARDS ASSIGNMENT) - PHASE II</option>
+	  <option value="50">DISCUSSION (TOWARDS ARTEFACT) - PHASE II</option>
+	  <option value="51">DISCUSSION (TOWARDS TEXT) - PHASE II</option>
+	  <option value="52">ROLE PLAY - PHASE I</option>
+	  <option value="53">ROLE PLAY - PHASE II</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+          </select>
+	</td>
+        <!--td style="background-color: cyan;">Phase:<br /><input type="text" name="C2-CSW-PHASE" size="3" /></td-->
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+      <table>
+      <tr>      <!-- TECHNIQUE 3rd week  -->
+        <td style="background-color: cyan;" id="techniqueSlot3">Technique:<br />
+	<select style="width:300px;" name="C3-CSW-TECHNIQUE"  id="C3-CSW-TECHNIQUE">
+	  <option value="" selected>&nbsp;</option>
+	  <option value="22">JIGSAW - PHASE I (EXPERT GROUPS)</option>
+	  <option value="37">JIGSAW - PHASE II (JIGSAW GROUPS)</option>
+	  <option value="38">PEER REVIEW - PHASE I</option>
+	  <option value="39">PEER REVIEW - PHASE II</option>
+	  <option value="40">PEER REVIEW - PHASE III</option>
+	  <option value="41">CASE STUDY - PHASE I</option>
+	  <option value="42">CASE STUDY - PHASE II</option>
+	  <option value="23">PYRAMID (FOR LIST PREPARATION) - PHASE I</option>
+	  <option value="43">PYRAMID (FOR LIST PREPARATION) - PHASE II</option>
+	  <option value="44">PYRAMID (FOR LIST PREPARATION) - PHASE III</option>
+	  <option value="45">PYRAMID (FOR PROBLEM SOLVING) - PHASE I</option>
+	  <option value="46">PYRAMID (FOR PROBLEM SOLVING) - PHASE II</option>
+	  <option value="47">PYRAMID (FOR PROBLEM SOLVING) - PHASE III</option>
+	  <option value="48">DISCUSSION - PHASE I (ALL CASES)</option>
+	  <option value="49">DISCUSSION (TOWARDS ASSIGNMENT) - PHASE II</option>
+	  <option value="50">DISCUSSION (TOWARDS ARTEFACT) - PHASE II</option>
+	  <option value="51">DISCUSSION (TOWARDS TEXT) - PHASE II</option>
+	  <option value="52">ROLE PLAY - PHASE I</option>
+	  <option value="53">ROLE PLAY - PHASE II</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+        <!--td style="background-color: cyan;">Phase:<br /><input type="text" name="C3-CSW-PHASE" size="3" /></td-->
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+      <table>
+      <tr>      <!-- TECHNIQUE 4th week -->
+        <td style="background-color: cyan;" id="techniqueSlot4">Technique:<br />
+	<select style="width:300px;" name="C4-CSW-TECHNIQUE"  id="C4-CSW-TECHNIQUE">
+	  <option value="" selected>&nbsp;</option>
+	  <option value="22">JIGSAW - PHASE I (EXPERT GROUPS)</option>
+	  <option value="37">JIGSAW - PHASE II (JIGSAW GROUPS)</option>
+	  <option value="38">PEER REVIEW - PHASE I</option>
+	  <option value="39">PEER REVIEW - PHASE II</option>
+	  <option value="40">PEER REVIEW - PHASE III</option>
+	  <option value="41">CASE STUDY - PHASE I</option>
+	  <option value="42">CASE STUDY - PHASE II</option>
+	  <option value="23">PYRAMID (FOR LIST PREPARATION) - PHASE I</option>
+	  <option value="43">PYRAMID (FOR LIST PREPARATION) - PHASE II</option>
+	  <option value="44">PYRAMID (FOR LIST PREPARATION) - PHASE III</option>
+	  <option value="45">PYRAMID (FOR PROBLEM SOLVING) - PHASE I</option>
+	  <option value="46">PYRAMID (FOR PROBLEM SOLVING) - PHASE II</option>
+	  <option value="47">PYRAMID (FOR PROBLEM SOLVING) - PHASE III</option>
+	  <option value="48">DISCUSSION - PHASE I (ALL CASES)</option>
+	  <option value="49">DISCUSSION (TOWARDS ASSIGNMENT) - PHASE II</option>
+	  <option value="50">DISCUSSION (TOWARDS ARTEFACT) - PHASE II</option>
+	  <option value="51">DISCUSSION (TOWARDS TEXT) - PHASE II</option>
+	  <option value="52">ROLE PLAY - PHASE I</option>
+	  <option value="53">ROLE PLAY - PHASE II</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+        <!--td style="background-color: cyan;">Phase:<br /><input type="text" name="C4-CSW-PHASE" size="3" /></td-->
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>     <!-- TASK & TEAM - FIRST ROW -->
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C1-ABA-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="32" >WRITING A TEXT</option>
+	  <option value="114" >STUDYING</option>
+	  <option value="118" >FINDING MATERIALS</option>
+	  <option value="122" >PREPARING A LIST</option>
+	  <option value="126" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="130" >PREPARING A PRESENTATION</option>
+	  <option value="134" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="138" >GIVING A PRESENTATION</option>
+	  <option value="142" >SOLVING A PROBLEM</option>
+	  <option value="146" >INTERVIEWING AN EXPERT</option>
+	  <option value="150" >ASSUMING ROLES</option>
+	  <option value="154" >PRODUCING AN ARTEFACT</option>
+	  <option value="158" >DEBATING</option>
+	  <Option Value="1000">Call For Suggestion</Option>
+	</select>
+	</td>
+        <td style="background-color: yellow;">Team:<br />
+	<select name="C1-ABA-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="24" >INDIVIDUAL LEARNERS</option>
+	  <option value="58" >PAIRS</option>
+	  <option value="54" >SMALL GROUPS</option>
+	  <option value="62" >MEDIUM-SIZED GROUPS</option>
+	  <option value="66" >LARGE GROUPS</option>
+	  <option value="70" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C2-ABA-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="33" >WRITING A TEXT</option>
+	  <option value="115" >STUDYING</option>
+	  <option value="119" >FINDING MATERIALS</option>
+	  <option value="123" >PREPARING A LIST</option>
+	  <option value="127" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="131" >PREPARING A PRESENTATION</option>
+	  <option value="135" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="139" >GIVING A PRESENTATION</option>
+	  <option value="143" >SOLVING A PROBLEM</option>
+	  <option value="147" >INTERVIEWING AN EXPERT</option>
+	  <option value="151" >ASSUMING ROLES</option>
+	  <option value="155" >PRODUCING AN ARTEFACT</option>
+	  <option value="159" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: yellow;">Team:<br />
+	<select name="C2-ABA-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="25" >INDIVIDUAL LEARNERS</option>
+	  <option value="59" >PAIRS</option>
+	  <option value="55" >SMALL GROUPS</option>
+	  <option value="63" >MEDIUM-SIZED GROUPS</option>
+	  <option value="67" >LARGE GROUPS</option>
+	  <option value="71" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C3-ABA-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="34" >WRITING A TEXT</option>
+	  <option value="116" >STUDYING</option>
+	  <option value="120" >FINDING MATERIALS</option>
+	  <option value="124" >PREPARING A LIST</option>
+	  <option value="128" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="132" >PREPARING A PRESENTATION</option>
+	  <option value="136" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="140" >GIVING A PRESENTATION</option>
+	  <option value="144" >SOLVING A PROBLEM</option>
+	  <option value="148" >INTERVIEWING AN EXPERT</option>
+	  <option value="152" >ASSUMING ROLES</option>
+	  <option value="156" >PRODUCING AN ARTEFACT</option>
+	  <option value="160" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: yellow;">Team:<br />
+	<select name="C3-ABA-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="26" >INDIVIDUAL LEARNERS</option>
+	  <option value="60" >PAIRS</option>
+	  <option value="56" >SMALL GROUPS</option>
+	  <option value="64" >MEDIUM-SIZED GROUPS</option>
+	  <option value="68" >LARGE GROUPS</option>
+	  <option value="72" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C4-ABA-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="35" >WRITING A TEXT</option>
+	  <option value="117" >STUDYING</option>
+	  <option value="121" >FINDING MATERIALS</option>
+	  <option value="125" >PREPARING A LIST</option>
+	  <option value="129" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="133" >PREPARING A PRESENTATION</option>
+	  <option value="137" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="141" >GIVING A PRESENTATION</option>
+	  <option value="145" >SOLVING A PROBLEM</option>
+	  <option value="149" >INTERVIEWING AN EXPERT</option>
+	  <option value="153" >ASSUMING ROLES</option>
+	  <option value="157" >PRODUCING AN ARTEFACT</option>
+	  <option value="161" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: yellow;">Team:<br />
+	<select name="C4-ABA-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="27" >INDIVIDUAL LEARNERS</option>
+	  <option value="61" >PAIRS</option>
+	  <option value="57" >SMALL GROUPS</option>
+	  <option value="65" >MEDIUM-SIZED GROUPS</option>
+	  <option value="69" >LARGE GROUPS</option>
+	  <option value="73" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>     <!-- TECHNOLOGY - FIRST ROW -->
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C1-ABA-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="28" >FORUM</option>
+	  <option value="74" >PRESENTATION SOFTWARE</option>
+	  <option value="78" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="82" >WIKI SOFTWARE</option>
+	  <option value="86" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="90" >SELECTED STUDY MATERIALS</option>
+	  <option value="94" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="98" >TEXT EDITOR</option>
+	  <option value="102" >PROJECTOR</option>
+	  <option value="106" >NO TECHNOLOGY</option>
+	  <option value="110" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+        </td>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C1-ABA-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="29" >FORUM</option>
+	  <option value="75" >PRESENTATION SOFTWARE</option>
+	  <option value="79" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="172" >WIKI SOFTWARE</option>
+	  <option value="87" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="91" >SELECTED STUDY MATERIALS</option>
+	  <option value="95" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="99" >TEXT EDITOR</option>
+	  <option value="103" >PROJECTOR</option>
+	  <option value="107" >NO TECHNOLOGY</option>
+	  <option value="111" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C2-ABA-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="30" >FORUM</option>
+	  <option value="76" >PRESENTATION SOFTWARE</option>
+	  <option value="80" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="84" >WIKI SOFTWARE</option>
+	  <option value="88" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="92" >SELECTED STUDY MATERIALS</option>
+	  <option value="96" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="100" >TEXT EDITOR</option>
+	  <option value="104" >PROJECTOR</option>
+	  <option value="108" >NO TECHNOLOGY</option>
+	  <option value="112" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: #66ff66;">Technology:<br />
+	<select name="C2-ABA-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="31" >FORUM</option>
+	  <option value="77" >PRESENTATION SOFTWARE</option>
+	  <option value="81" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="85" >WIKI SOFTWARE</option>
+	  <option value="89" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="93" >SELECTED STUDY MATERIALS</option>
+	  <option value="97" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="101" >TEXT EDITOR</option>
+	  <option value="105" >PROJECTOR</option>
+	  <option value="109" >NO TECHNOLOGY</option>
+	  <option value="113" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C3-ABA-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="28" >FORUM</option>
+	  <option value="74" >PRESENTATION SOFTWARE</option>
+	  <option value="78" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="82" >WIKI SOFTWARE</option>
+	  <option value="86" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="90" >SELECTED STUDY MATERIALS</option>
+	  <option value="94" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="98" >TEXT EDITOR</option>
+	  <option value="102" >PROJECTOR</option>
+	  <option value="106" >NO TECHNOLOGY</option>
+	  <option value="110" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: #66ff66;">Technology:<br />
+	<select name="C3-ABA-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="29" >FORUM</option>
+	  <option value="75" >PRESENTATION SOFTWARE</option>
+	  <option value="79" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="172" >WIKI SOFTWARE</option>
+	  <option value="87" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="91" >SELECTED STUDY MATERIALS</option>
+	  <option value="95" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="99" >TEXT EDITOR</option>
+	  <option value="103" >PROJECTOR</option>
+	  <option value="107" >NO TECHNOLOGY</option>
+	  <option value="111" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C4-ABA-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="30" >FORUM</option>
+	  <option value="76" >PRESENTATION SOFTWARE</option>
+	  <option value="80" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="84" >WIKI SOFTWARE</option>
+	  <option value="88" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="92" >SELECTED STUDY MATERIALS</option>
+	  <option value="96" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="100" >TEXT EDITOR</option>
+	  <option value="104" >PROJECTOR</option>
+	  <option value="108" >NO TECHNOLOGY</option>
+	  <option value="112" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: #66ff66;">Technology:<br />
+	<select name="C4-ABA-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="31" >FORUM</option>
+	  <option value="77" >PRESENTATION SOFTWARE</option>
+	  <option value="81" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="85" >WIKI SOFTWARE</option>
+	  <option value="89" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="93" >SELECTED STUDY MATERIALS</option>
+	  <option value="97" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="101" >TEXT EDITOR</option>
+	  <option value="105" >PROJECTOR</option>
+	  <option value="109" >NO TECHNOLOGY</option>
+	  <option value="113" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>     <!-- TASK & TEAM - SECOND ROW -->
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C1-ABB-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="32" >WRITING A TEXT</option>
+	  <option value="114" >STUDYING</option>
+	  <option value="118" >FINDING MATERIALS</option>
+	  <option value="122" >PREPARING A LIST</option>
+	  <option value="126" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="130" >PREPARING A PRESENTATION</option>
+	  <option value="134" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="138" >GIVING A PRESENTATION</option>
+	  <option value="142" >SOLVING A PROBLEM</option>
+	  <option value="146" >INTERVIEWING AN EXPERT</option>
+	  <option value="150" >ASSUMING ROLES</option>
+	  <option value="154" >PRODUCING AN ARTEFACT</option>
+	  <option value="158" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+        <td style="background-color: yellow;">Team:<br />
+	<select name="C1-ABB-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="24" >INDIVIDUAL LEARNERS</option>
+	  <option value="58" >PAIRS</option>
+	  <option value="54" >SMALL GROUPS</option>
+	  <option value="62" >MEDIUM-SIZED GROUPS</option>
+	  <option value="66" >LARGE GROUPS</option>
+	  <option value="70" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C2-ABB-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="33" >WRITING A TEXT</option>
+	  <option value="115" >STUDYING</option>
+	  <option value="119" >FINDING MATERIALS</option>
+	  <option value="123" >PREPARING A LIST</option>
+	  <option value="127" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="131" >PREPARING A PRESENTATION</option>
+	  <option value="135" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="139" >GIVING A PRESENTATION</option>
+	  <option value="143" >SOLVING A PROBLEM</option>
+	  <option value="147" >INTERVIEWING AN EXPERT</option>
+	  <option value="151" >ASSUMING ROLES</option>
+	  <option value="155" >PRODUCING AN ARTEFACT</option>
+	  <option value="159" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: yellow;">Team:<br />
+	<select name="C2-ABB-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="25" >INDIVIDUAL LEARNERS</option>
+	  <option value="59" >PAIRS</option>
+	  <option value="55" >SMALL GROUPS</option>
+	  <option value="63" >MEDIUM-SIZED GROUPS</option>
+	  <option value="67" >LARGE GROUPS</option>
+	  <option value="71" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C3-ABB-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="34" >WRITING A TEXT</option>
+	  <option value="116" >STUDYING</option>
+	  <option value="120" >FINDING MATERIALS</option>
+	  <option value="124" >PREPARING A LIST</option>
+	  <option value="128" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="132" >PREPARING A PRESENTATION</option>
+	  <option value="136" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="140" >GIVING A PRESENTATION</option>
+	  <option value="144" >SOLVING A PROBLEM</option>
+	  <option value="148" >INTERVIEWING AN EXPERT</option>
+	  <option value="152" >ASSUMING ROLES</option>
+	  <option value="156" >PRODUCING AN ARTEFACT</option>
+	  <option value="160" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: yellow;">Team:<br />
+	<select name="C3-ABB-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="26" >INDIVIDUAL LEARNERS</option>
+	  <option value="60" >PAIRS</option>
+	  <option value="56" >SMALL GROUPS</option>
+	  <option value="64" >MEDIUM-SIZED GROUPS</option>
+	  <option value="68" >LARGE GROUPS</option>
+	  <option value="72" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: pink;">Task:<br />
+	<select name="C4-ABB-CSS-TASK" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="35" >WRITING A TEXT</option>
+	  <option value="117" >STUDYING</option>
+	  <option value="121" >FINDING MATERIALS</option>
+	  <option value="125" >PREPARING A LIST</option>
+	  <option value="129" >COMMENTING ON SOMEONE ELSE�S WORK</option>
+	  <option value="133" >PREPARING A PRESENTATION</option>
+	  <option value="137" >CARRYING OUT AN ASSIGNMENT</option>
+	  <option value="141" >GIVING A PRESENTATION</option>
+	  <option value="145" >SOLVING A PROBLEM</option>
+	  <option value="149" >INTERVIEWING AN EXPERT</option>
+	  <option value="153" >ASSUMING ROLES</option>
+	  <option value="157" >PRODUCING AN ARTEFACT</option>
+	  <option value="161" >DEBATING</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: yellow;">Team:<br />
+	<select name="C4-ABB-CSS-TEAM" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="27" >INDIVIDUAL LEARNERS</option>
+	  <option value="61" >PAIRS</option>
+	  <option value="57" >SMALL GROUPS</option>
+	  <option value="65" >MEDIUM-SIZED GROUPS</option>
+	  <option value="69" >LARGE GROUPS</option>
+	  <option value="73" >PLENARY</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>     <!-- TECHNOLOGY - SECOND ROW -->
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C1-ABB-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="28" >FORUM</option>
+	  <option value="74" >PRESENTATION SOFTWARE</option>
+	  <option value="78" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="82" >WIKI SOFTWARE</option>
+	  <option value="86" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="90" >SELECTED STUDY MATERIALS</option>
+	  <option value="94" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="98" >TEXT EDITOR</option>
+	  <option value="102" >PROJECTOR</option>
+	  <option value="106" >NO TECHNOLOGY</option>
+	  <option value="110" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C1-ABB-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="29" >FORUM</option>
+	  <option value="75" >PRESENTATION SOFTWARE</option>
+	  <option value="79" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="172" >WIKI SOFTWARE</option>
+	  <option value="87" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="91" >SELECTED STUDY MATERIALS</option>
+	  <option value="95" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="99" >TEXT EDITOR</option>
+	  <option value="103" >PROJECTOR</option>
+	  <option value="107" >NO TECHNOLOGY</option>
+	  <option value="111" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C2-ABB-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="30" >FORUM</option>
+	  <option value="76" >PRESENTATION SOFTWARE</option>
+	  <option value="80" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="84" >WIKI SOFTWARE</option>
+	  <option value="88" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="92" >SELECTED STUDY MATERIALS</option>
+	  <option value="96" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="100" >TEXT EDITOR</option>
+	  <option value="104" >PROJECTOR</option>
+	  <option value="108" >NO TECHNOLOGY</option>
+	  <option value="112" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: #66ff66;">Technology:<br />
+	<select name="C2-ABB-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="31" >FORUM</option>
+	  <option value="77" >PRESENTATION SOFTWARE</option>
+	  <option value="81" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="85" >WIKI SOFTWARE</option>
+	  <option value="89" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="93" >SELECTED STUDY MATERIALS</option>
+	  <option value="97" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="101" >TEXT EDITOR</option>
+	  <option value="105" >PROJECTOR</option>
+	  <option value="109" >NO TECHNOLOGY</option>
+	  <option value="113" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C3-ABB-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="28" >FORUM</option>
+	  <option value="74" >PRESENTATION SOFTWARE</option>
+	  <option value="78" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="82" >WIKI SOFTWARE</option>
+	  <option value="86" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="90" >SELECTED STUDY MATERIALS</option>
+	  <option value="94" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="98" >TEXT EDITOR</option>
+	  <option value="102" >PROJECTOR</option>
+	  <option value="106" >NO TECHNOLOGY</option>
+	  <option value="110" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: #66ff66;">Technology:<br />
+	<select name="C3-ABB-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="29" >FORUM</option>
+	  <option value="75" >PRESENTATION SOFTWARE</option>
+	  <option value="79" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="172" >WIKI SOFTWARE</option>
+	  <option value="87" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="91" >SELECTED STUDY MATERIALS</option>
+	  <option value="95" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="99" >TEXT EDITOR</option>
+	  <option value="103" >PROJECTOR</option>
+	  <option value="107" >NO TECHNOLOGY</option>
+	  <option value="111" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+  <td style="border-left: 1px solid black;">
+    <table>
+      <tr>
+        <td style="background-color: #66ff66;">Technology:<br />
+	<select name="C4-ABB-CSS-TEC1" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="30" >FORUM</option>
+	  <option value="76" >PRESENTATION SOFTWARE</option>
+	  <option value="80" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="84" >WIKI SOFTWARE</option>
+	  <option value="88" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="92" >SELECTED STUDY MATERIALS</option>
+	  <option value="96" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="100" >TEXT EDITOR</option>
+	  <option value="104" >PROJECTOR</option>
+	  <option value="108" >NO TECHNOLOGY</option>
+	  <option value="112" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+	<td style="background-color: #66ff66;">Technology:<br />
+	<select name="C4-ABB-CSS-TEC2" >
+	  <option value="" selected>&nbsp;</option>
+	  <option value="31" >FORUM</option>
+	  <option value="77" >PRESENTATION SOFTWARE</option>
+	  <option value="81" >INTERACTIVE WHITEBOARD (IWB)</option>
+	  <option value="85" >WIKI SOFTWARE</option>
+	  <option value="89" >VIDEOCONFERENCING SYSTEM</option>
+	  <option value="93" >SELECTED STUDY MATERIALS</option>
+	  <option value="97" >SOURCE OF MATERIALS FOR LEARNING</option>
+	  <option value="101" >TEXT EDITOR</option>
+	  <option value="105" >PROJECTOR</option>
+	  <option value="109" >NO TECHNOLOGY</option>
+	  <option value="113" >MATERIALS AND TOOLS FOR PRACTICE</option>
+	  <option value="1000">CALL FOR SUGGESTION</option>
+	</select>
+	</td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<div>
+
+<!-- input type="submit" formaction="http://localhost:8000/listTechniques_Unity"
+       target="_blank"
+       value="List techniques" style="margin-right: 30px;"/-->
+<input type="submit" formaction="http://localhost:8000/semantic_check_Unity"
+       target="_blank"
+       name="semantic_check" value="Semantic check" style="margin-right: 30px;"/>
+<input type="submit" formaction="http://localhost:8000/toXML_Unity"
+       target="_blank"
+       name="toXML" value="Convert to XML" style="margin-right: 30px;"/>
+
+</div>
+</form>
+<!------------------------------------------------------------------->
+
+</body>
+</html>
