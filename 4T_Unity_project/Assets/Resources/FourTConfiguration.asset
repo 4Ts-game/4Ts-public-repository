@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96eb41e303eb78b47a94729753a971ce, type: 3}
+  m_Name: FourTConfiguration
+  m_EditorClassIdentifier: 
+  KnowledgeBaseVersion: 3.16
+  DefaultSheetID: 11wEMb8UJZQkI92caK7ts8Gi4tQIyF7uVLKZwiuKZ_74
+  ManageFiles: 1
+  TechniqueColor: {r: 0.6148096, g: 0.7322891, b: 0.8301887, a: 1}
+  TeamColor: {r: 0.8773585, g: 0.5245078, b: 0, a: 1}
+  TechnologyColor: {r: 0.22347811, g: 0.509434, b: 0.31431112, a: 1}
+  TaskColor: {r: 0.6784314, g: 0.1882353, b: 0.20392157, a: 1}
+  WildcardColor: {r: 0.28773582, g: 0.6444185, b: 1, a: 0}
+  TechniqueIcon: {fileID: 21300000, guid: 920f6de46ac8848d9b3ead48452f713f, type: 3}
+  TeamIcon: {fileID: 21300000, guid: ec71662e297f74ab7bc0119d8141cfc0, type: 3}
+  TechnologyIcon: {fileID: 21300000, guid: a6c16dced691a4127a2917cc7bfcc6ad, type: 3}
+  TaskIcon: {fileID: 21300000, guid: 57ccc2fc72f9b47be84dfece36572052, type: 3}
+  WildcardIcon: {fileID: 21300000, guid: a68808c80b3d54765a11fae3c2f2a7e2, type: 3}

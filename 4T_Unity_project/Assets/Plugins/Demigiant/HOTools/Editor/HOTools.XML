@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HOTools</name>
+    </assembly>
+    <members>
+        <member name="M:Holoville.HOTools.Core.CompatibilityUtils.EncodeToPNG(UnityEngine.Texture2D)">
+            <summary>
+            Encodes to PNG using reflection in case of Unity 2017 (since method is different)
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Core.MenuItemFileCreator.CreateMenuItem``1(System.String,System.String,System.Boolean)">
+            <summary>
+            Generates a file which can be used to create a menu item (under the Window menu) 
+            that will open an editor window of the given type.
+            </summary>
+            <typeparam name="T">Type of editor window to target</typeparam>
+            <param name="directoryPath">Full path to the directory where the file will be created (without final slash)</param>
+            <param name="name">Name of the menu item</param>
+            <param name="isDockableWindow">If TRUE the window will be opened as dockable</param>
+        </member>
+        <member name="M:Holoville.HOTools.Core.MenuItemFileCreator.CreateMenuItem``1(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Generates a file which can be used to create a menu item (under the Window menu) 
+            that will open an editor window of the given type, accessed via the set shortcut.
+            </summary>
+            <typeparam name="T">Type of editor window to target</typeparam>
+            <param name="directoryPath">Full path to the directory where the file will be created (without final slash)</param>
+            <param name="name">Name of the menu item</param>
+            <param name="isDockableWindow">If TRUE the window will be opened as dockable</param>
+            <param name="useCtrl">If TRUE CTRL/CMD key will be used when creating the shortcut</param>
+            <param name="useShift">If TRUE SHIFT key will be used when creating the shortcut</param>
+            <param name="letter">Letter to assign to the shortcut</param>
+        </member>
+        <member name="M:Holoville.HOTools.Data.Src.ResetTempData">
+            <summary>
+            Resets all the non-serialized data that was used temporarily.
+            </summary>
+        </member>
+        <member name="T:Holoville.HOTools.HOToolsWindow">
+            <summary>
+            HOTools window.
+            </summary>
+        </member>
+        <member name="F:Holoville.HOTools.HOToolsWindow.repaintOnSelectionChange">
+            <summary>
+            Set by Tools that need to be updated when the selection changes
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tabs.SettingsTab.Init">
+            <summary>
+            Called by <see cref="T:Holoville.HOTools.HOToolsWindow"/> each time this tab is selected.
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.BreakSelectedPrefabsTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.ColorCollectionTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.ColorCollectionTool.GetColorFromString(System.String)">
+            <summary>
+            Color string must be formatted as [n, n, n, n] (with or without spaces).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.CreateComponentsIconsTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.CreatePartialCube.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.CreateQuadTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.CreateQuadTool.MakeQuad(System.Single,System.Single,System.Single,System.Single,UnityEngine.TextAnchor)">
+            <summary>
+            Creates a quad facing the negative Z direction.
+            </summary>
+            <param name="width">Quad width</param>
+            <param name="height">Quad height</param>
+            <param name="uvHorPerc">UV horizontal stretch percentage (0 to 1)</param>
+            <param name="uvVertPerc">UV vertical stretch percentage (0 to 1)</param>
+            <param name="alignment">Pivot alignment</param>
+            <returns></returns>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.MirrorExternalFolderTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.ReplaceObjectTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+        <member name="M:Holoville.HOTools.Tools.ScreenshotTool.Draw(Holoville.HOTools.HOToolsWindow)">
+            <summary>
+            Returns a delegate to this same method if this tool should own the whole panel
+            (like when a subpanel is opened exclusively for this tool).
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1 @@
+FBX format requires tris, not quads. Otherwise selecting both "Keep Quads" and "Generate Lightmap" in Unity's importer will cause a crash (Unity bug)

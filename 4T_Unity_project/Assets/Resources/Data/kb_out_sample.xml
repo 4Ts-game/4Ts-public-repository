@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE kb-response SYSTEM "kb_out.dtd">
+<kb-response>
+
+  <inconsistent-slots>
+    <position>C1-CSW-TECHNIQUE</position>
+    <position>C2-CSW-TECHNIQUE</position>
+  </inconsistent-slots>
+
+  <missing-cards>
+    <cards>
+      <alternative>
+        <position>C1-ABA-CSS-TEAM</position>
+      </alternative>
+      <alternative>
+        <position>C1-ABA-CSS-TEC1</position>
+      </alternative>
+    </cards>
+  </missing-cards>
+
+  <suggested-cards>
+
+    <cards>
+      <ground-card>
+        <technique-card>DISCUSSION - PHASE I (ALL CASES)</technique-card>
+        <position>C1-CSW-TECHNIQUE</position>
+      </ground-card>
+    </cards>
+   
+  </suggested-cards>
+
+</kb-response>

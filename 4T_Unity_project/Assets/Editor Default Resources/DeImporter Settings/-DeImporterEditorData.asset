@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1383651542, guid: 246fb46bb44f83947846f448749f26a0, type: 3}
+  m_Name: -DeImporterEditorData
+  m_EditorClassIdentifier: 
+  isEnabled: 1
+  allowedContent:
+    audio: 1
+    textures: 1
+    models: 1
+  markDivergentAssets: 1
+  markManagedFoldersAndSubfolders: 1
+  logMode: 1
+  confirmReimport: 1
+  singleFolderMode: 1
+  showHelp: 1
+  audioFoldout: 1
+  texturesFoldout: 1
+  modelsFoldout: 1
+  audioFolders: []
+  textureFolders: []
+  modelFolders: []
+  _divergentAssetsGuids: []
+  _managedFoldersGuids: []
+  _managedSubFoldersGuids: []
+  _managedFolderOrSubFolderGuidIndexes: []
+  _managedFolderOrSubFolderManagingFolder: []

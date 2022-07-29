@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7022592164289848079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7022592164289848072}
+  - component: {fileID: 6756926047196730292}
+  - component: {fileID: 2294643171379142676}
+  - component: {fileID: 7046091047287955370}
+  m_Layer: 0
+  m_Name: FourTManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7022592164289848072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022592164289848079}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6581001, y: 0.32378227, z: 62.77427}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6756926047196730292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022592164289848079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ac2bcffad70484e81da1f95c0855aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameTimeManagerDebug: 
+--- !u!114 &2294643171379142676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022592164289848079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9238ff312486240279fac39b3b0d4251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseDefaultI18n: 0
+  I18nSpreadsheetId: 
+  I18nTabId: 
+  ReferenceMasterAudioVolume: 1
+  FrameworkAndPlayState:
+    setuppableStateValue: 0
+    processesToBeCompleted: 0
+    stateValue: 0
+  Production: 0
+  DebugSpecific: 0
+  NoDownloadData: 0
+  DownloadDataAlsoOutsideEditor: 0
+  Config: {fileID: 11400000, guid: 696f9841639937e40a5c150ddfe8216f, type: 2}
+  ServerURL: 
+  CardsSetup:
+    setuppableStateValue: 0
+    processesToBeCompleted: 0
+  Sheet:
+    Label: 
+    Id: 
+    TabId: 
+--- !u!114 &7046091047287955370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022592164289848079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8dee9362b79b2f40a617457a77eb7b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Setup:
+    setuppableStateValue: 0
+    processesToBeCompleted: 0

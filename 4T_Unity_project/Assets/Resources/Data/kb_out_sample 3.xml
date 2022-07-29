@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE kb-response SYSTEM "kb_out.dtd">
+<kb-response>
+  <inconsistent-slots>
+  </inconsistent-slots>
+  <missing-cards>
+    <cards>
+      <alternative>
+        <position>C1-ABA-CSS-TASK</position>
+      </alternative>
+    </cards>
+  </missing-cards>
+  <suggested-cards>
+    <cards>
+      <ground-card>
+        <technique-card />
+        <position>C2-CSW-TECHNIQUE</position>
+      </ground-card>
+    </cards>
+  </suggested-cards>
+</kb-response>

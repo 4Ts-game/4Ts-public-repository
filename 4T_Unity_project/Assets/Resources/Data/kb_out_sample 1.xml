@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE kb-response SYSTEM "kb_out.dtd">
+<kb-response>
+
+  <inconsistent-slots>
+    <position>C1-CSW-TECHNIQUE</position>
+    <position>C2-CSW-TECHNIQUE</position>
+  </inconsistent-slots>
+
+  <missing-cards>
+    <cards>
+      <alternative>
+        <position>C1-ABA-CSS-TEAM</position>
+      </alternative>
+      <alternative>
+        <position>C1-ABA-CSS-TEC1</position>
+      </alternative>
+    </cards>
+  </missing-cards>
+
+  <suggested-cards>
+
+    <cards>
+      <alternative>
+        <technique-card>DISCUSSION (TOWARDS ASSIGNMENT) - PHASE II</technique-card>
+        <technique-card>DISCUSSION (TOWARDS ARTEFACT) - PHASE II</technique-card>
+        <technique-card>DISCUSSION (TOWARDS REPORT) - PHASE II</technique-card>
+        <!-- fake mixture -->
+        <technique-card>
+          <technique-name>JIGSAW - PHASE I (EXPERT GROUPS)</technique-name>
+          <technique-phase>1</technique-phase>
+        </technique-card>
+        <position>C2-ABA-CSS-TEAM</position>
+      </alternative>
+    </cards>
+  
+  </suggested-cards>
+
+</kb-response>

@@ -1,0 +1,91 @@
+﻿// Author: Pietro Polsinelli - http://designAGame.eu
+// Twitter https://twitter.com/ppolsinelli
+// License: WTFPL, all free as in free beer :-)
+// Tested with Unity 5.6.1
+// Created: 06 02 2017
+
+using System;
+using DG.Debugging;
+using DG.DeInspektor.Attributes;
+using DG.Tweening;
+using UnityEngine;
+
+namespace OL
+{
+    [RequireComponent(typeof(I18n))]
+    [RequireComponent(typeof(SimpleGameTimeManager))]
+    public abstract class SimpleGameManager : MonoBehaviour
+    {
+        [DeHeader("I18n", "FFFFFFFF", "4C7353FF")]
+        public bool UseDefaultI18n;
+        public string I18nSpreadsheetId;
+        public string I18nTabId;
+        protected I18n I18N;
+
+        [DeHeader("Audio", "FFFFFFFF", "4C7353FF")]
+        public float ReferenceMasterAudioVolume;
+
+        [DeHeader("Computed", "000000FF", "C7B299FF")]
+        public State FrameworkAndPlayState;
+
+        [DeHeader("Configuration", "FFFFFFFF", "4C7353FF")]
+        [DeComment("This will also turn on DOTween safe mode.")]
+        [DeColoredLabel("000000FFF", "EDD55AFF")]
+        public bool Production;
+        
+        [DeColoredLabel("000000FFF", "EDD55AFF")]
+        public bool NoDownloadData;
+
+        //other
+        public static string Build;
+
+        public static SimpleGameManager InjectedReferrableInstance;
+        public abstract void SetConcreteInstance();
+
+        void Awake()
+        {
+            if (!DOTween.useSafeMode)
+                DOTween.useSafeMode = Production;
+
+            var asset = Resources.Load("ol.build") as TextAsset;
+            Build = asset.text;
+
+            if (InjectedReferrableInstance == null)
+            {
+                SetConcreteInstance();
+                FrameworkAndPlayState = State.NewInstance();
+
+                DontDestroyOnLoad(gameObject);
+
+                FrameworkAndPlayState.Setupping();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void Start()
+        {
+            if (UseDefaultI18n)
+            {
+                I18n.I.Setup = Setuppable.NewInstance();
+                if (string.IsNullOrEmpty(I18nSpreadsheetId))
+                    throw new Exception("UseDefaultI18n active without I18nSpreadsheetId");
+                I18N = GetComponent<I18n>();
+                I18N.SetupI18n(I18nSpreadsheetId, I18nTabId);
+            }
+
+            if (!Production)
+            {
+                Debug.Log("Development release");
+            }
+            OnStart();
+        }
+
+        public abstract void OnStart();
+
+        public abstract void SetPlayStateToRunAndFirstStartTime();
+
+    }
+}

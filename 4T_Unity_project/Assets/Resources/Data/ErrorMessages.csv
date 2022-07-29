@@ -1,0 +1,15 @@
+ID,Message
+0,There's something wrong on your gameplay; please try replacing the card.
+001,This Task must be preceded by a prerequiste Task. Read the Task card again and make a different choice.
+002,"The combination of Task, Team and Technology(ies) is not recognized as a valid pattern. Read the cards again and make different choices."
+003,"The combination of Task, Team and Technology(ies) has a one week duration, which makes it incompatible in the position it is used"
+004,This Technology is not compatible with the specified Team. Read the cards again and make a different choice.
+005,You cannot specify the same Technology twice for the same Task
+006,The specified Technologies are not compatible one with the other. Read the cards again and make a different choice.
+007,The two tasks have both a one week duration and cannot be placed in the same week
+098,Unexpected Wildcard found in this slot
+099,Unexpected card type found in this slot. Card color should coincide with slot color.
+201,This Technique card is not placed in the appropriate column/week. Read the Technique card again to understand where you should place this phase.
+202,This Task is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.
+203,This Team is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.
+204,This Technology is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.

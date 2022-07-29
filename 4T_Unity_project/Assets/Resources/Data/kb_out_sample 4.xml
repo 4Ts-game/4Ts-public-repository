@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE kb-response SYSTEM "kb_out.dtd">
+<kb-response>
+  <inconsistent-slots>
+  </inconsistent-slots>
+  <missing-cards>
+    <cards>
+    </cards>
+  </missing-cards>
+  <suggested-cards>
+    <cards>
+      <alternative>
+        <team-card>INDIVIDUAL LEARNERS</team-card>
+        <team-card>PAIRS</team-card>
+        <team-card>SMALL GROUPS</team-card>
+        <position>C1-ABA-CSS-TEAM</position>
+      </alternative>
+    </cards>
+  </suggested-cards>
+</kb-response>

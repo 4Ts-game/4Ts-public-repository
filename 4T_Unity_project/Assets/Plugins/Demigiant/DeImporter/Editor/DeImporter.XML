@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DeImporter</name>
+    </assembly>
+    <members>
+        <member name="T:DG.DeImporter.Attributes.DeObjectGuidAttribute">
+            <summary>
+            <code>Property attribute</code><para/>
+            Shows the GUID with as a clickable button that pings the target object (if it exist), only works with string fields
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporter.ReimportAllFolders(System.Collections.Generic.List{DG.DeImporter.DeImporterData.Folder})">
+            <summary>
+            Reimports all files of the given type in the folder
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporter.ReimportFolder(DG.DeImporter.DeImporterData.Folder)">
+            <summary>
+            Reimports all files of the given type in the folder
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporter.RefreshAllDivergentAssets">
+            <summary>
+            Refreshes the list of possibly divergent assets
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporter.DoReimportFolder(DG.DeImporter.DeImporterData.Folder,System.Boolean)">
+            <summary>
+            Reimports all files of the given type in the folder
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporterData.IsFolderManagedByDeImporter(System.String,System.String)">
+            <summary>
+            IMPORTANT: returns always the same reference, that is updated on request
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporterData.DataExistsButIsUnavailable">
+            <summary>
+            Returns TRUE if the stored <see cref="T:DG.DeImporter.DeImporterData"/> exists but is currently unavailable for loading,
+            which can happen if requested too soon after Unity reimported the Library folder
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.DeImporterRefs.GenerateRef(DG.DeImporter.Enums.ContentType)">
+            <summary>
+            Generates a new reference for the given type and returns its GUID
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.TheLog.DebugLog(System.Object,UnityEngine.Object,System.String)">
+            <summary>
+            Logs only if set to DebugMode
+            </summary>
+            <param name="color">Color hex (no # required)</param>
+        </member>
+        <member name="M:DG.DeImporter.TheLog.DebugLog(System.Object,System.Object,UnityEngine.Object,System.String)">
+            <summary>
+            Logs only if set to DebugMode
+            </summary>
+            <param name="color">Color hex (no # required)</param>
+        </member>
+        <member name="M:DG.DeImporter.UI.AnimBoolsManager.GetEvidenceFaded">
+            <summary>
+            Returns 1 for the first 3 seconds, then fades out
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DG.DeImporter.Utils.GetContentType(UnityEngine.Object)">
+            <summary>
+            Returns the enentual content type of the given object
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.Utils.GetContentType(System.String)">
+            <summary>
+            Returns the enentual content type of the given object at filepath
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.Utils.AssetIsManagedBySubfolder(DG.DeImporter.DeImporterData.Folder,System.String)">
+            <summary>
+            Returns TRUE if the given assetGUID is managed more directly by a subfolder of the given folder
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.Utils.CompareImporters(UnityEditor.AssetImporter,UnityEditor.AssetImporter,System.Boolean)">
+            <summary>
+            Returns TRUE if they're similar enough (for what we're concerned)
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.Utils.RepaintProjectWindow(System.Boolean)">
+            <summary>
+            Refreshes the whole Project panel.
+            Used to repaint it after refreshing divregent assets
+            </summary>
+        </member>
+        <member name="M:DG.DeImporter.Utils.RepaintInspectorWindow">
+            <summary>
+            Refreshes the whole Inspector panel.
+            Used to repaint it after Reimporting a folder's settings, so it shows the new settings correctly
+            </summary>
+        </member>
+    </members>
+</doc>
