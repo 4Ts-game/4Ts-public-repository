@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card Drawer</title>
+
+  <link rel="stylesheet" href="CSS/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+
+</head>
+<body class="frontSide twoK bigBoard">
+<div id="title">
+  <img alt="Pleiade logo" id="pleiadeLogo" src="assets/logo.png">
+
+
+  <div id="sheetData">
+    <h1>i4Ts Download App and Board</h1>
+    <br><br><a href="i4TBoards.pdf" download="i4TBoard.pdf" id="downloadBoard">Download the board (PDF, 100kb)</a>
+    <br>
+    <br>
+    <br><br><a href="i4T_macOS.zip" download="i4T_macOS.zip" id="downloadmacOS">Download macOS app (66.7mb)</a>
+    <br><br><a href="i4T_win.zip" download="i4T_win.zip" id="downloadWin">Download Windows app (66.4mb)</a>
+    <br>
+    <br>
+    <br>
+    <h1>i4Ts Cards Generator</h1>
+    <label>Sheet ID: </label> <input id="sheetID" type="text" placeholder="Google Sheet ID">
+
+    <br><br><label for="printMethod">Print method: </label><select id="printMethod" onchange="setPrintMethod()">
+    <option value="0">Color</option>
+    <option value="1">Black and White</option>
+  </select>
+
+    <br><br><label for="printSide">Print Side: </label><select id="printSide" onchange="setPrintSide()">
+    <option value="0">Front</option>
+    <option value="1">Back</option>
+  </select>
+    <br><br><br>
+    <button id="printCards" onclick="printCards()">Print Cards</button>
+  </div>
+</div>
+<div id="cards"></div>
+
+<script>
+  //default spreadsheet (English)
+	let ID = "11wEMb8UJZQkI92caK7ts8Gi4tQIyF7uVLKZwiuKZ_74";
+  // let ID = "1oMOZyhZ5EdQYDa4lDQylRIFQWmZ1ZpvGFc8vxQm73Mw";
+
+  $(function () {
+  	$("#cards").hide();
+		$("#sheetData input#sheetID").val(ID);
+		$("#sheetData input#tabID").val(0);
+
+		$("#sheetData input#sheetID").change();
+	})
+
+  function printCards(){
+	  $("#cards").show();
+
+	  $("#printCards").attr("disabled", true);
+	  setTimeout(()=>{
+	    window.print();
+	    $("#printCards").attr("disabled", false);
+    },2000)
+  }
+
+	$("#sheetData input#sheetID").on("change", function () {
+		window.newSheetToJSONClass($('#sheetData input#sheetID').val(), $('#sheetData input#tabID').val());
+	})
+
+	$("#sheetData input#tabID").on("change", function () {
+		window.newSheetToJSONClass($('#sheetData input#sheetID').val(), $('#sheetData input#tabID').val());
+	})
+
+	function setCamResCardLayout() {
+		if ($("#camRes").val() == 0)
+			$("body").addClass("twoK")
+		else
+			$("body").removeClass("twoK")
+	}
+
+	function setPrintMethod() {
+		if ($("#printMethod").val() == 1)
+			$("body").addClass("blackAndWhite")
+		else
+			$("body").removeClass("blackAndWhite")
+	}
+
+	function setBoardSize() {
+		$("body").removeClass("mediumBoard bigBoard")
+		if ($("#boardSize").val() == 1)
+			$("body").addClass("mediumBoard")
+		else if ($("#boardSize").val() == 2)
+			$("body").addClass("bigBoard")
+	}
+
+	function setPrintSide() {
+		$("body").removeClass("frontSide backSide")
+		if ($("#printSide").val() == 1)
+			$("body").addClass("backSide")
+		else
+			$("body").removeClass("backSide")
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+@font-face {
+  font-family: 'i4tIcon';
+  src: url('fonts/i4tIcon.ttf?syug3q') format('truetype'), url('fonts/i4tIcon.woff?syug3q') format('woff'), url('fonts/i4tIcon.svg?syug3q#i4tIcon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'i4tIcon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-task:before {
+  content: "\e900";
+}
+.icon-time:before {
+  content: "\e901";
+}
+.icon-technology:before {
+  content: "\e902";
+}
+.icon-time1:before {
+  content: "\e903";
+}
+.icon-team:before {
+  content: "\e904";
+}
+body {
+  background: #262626;
+  font-family: sans-serif;
+  padding: 0 150px;
+  color: #fff;
+}
+body h3 {
+  font-weight: normal;
+}
+body label {
+  position: relative;
+  display: inline-block;
+  width: 70mm;
+  font-size: 16pt;
+}
+body select {
+  font-size: 14pt;
+  width: 50mm;
+}
+body a {
+  color: #ffffff;
+}
+body #pleiadeLogo {
+  width: 20vw;
+  margin-bottom: 5mm;
+}
+body #header {
+  display: none;
+}
+body #title {
+  margin-top: 20mm;
+}
+body #sheetData {
+  text-align: left;
+  margin-top: 5mm;
+  display: inline-block;
+  width: 50vw;
+  vertical-align: top;
+  margin-left: 10mm;
+}
+body button {
+  background-color: #008c00;
+  border: none;
+  color: white;
+  padding: 4mm;
+  text-align: center;
+  font-size: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+body button:hover {
+  background-color: #004f00;
+}
+body button[disabled] {
+  pointer-events: none;
+  opacity: 0.3;
+}
+body #sheetData input {
+  font-size: 100%;
+  padding: 2mm;
+  text-align: left;
+  border: none;
+  background: #ffffff;
+  margin-bottom: 3mm;
+}
+body #sheetData input#sheetID {
+  width: 25vw;
+  font-weight: bold;
+}
+body #sheetData input#tabID {
+  width: 10vw;
+  font-weight: bold;
+}
+body #cards {
+  display: block;
+  width: 230mm;
+  position: relative;
+  margin: auto;
+  text-align: center;
+  /*width: 100%;*/
+}
+body #cards .section-header {
+  page-break-before: always;
+}
+body #cards .card {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  width: 50mm;
+  height: 65mm;
+  padding: 5mm;
+  margin: 1mm;
+  font-family: sans-serif;
+  font-size: 12pt;
+  background: aliceblue;
+  vertical-align: top;
+}
+body #cards .card.jolly .title {
+  background-color: white;
+  padding: 50px;
+}
+body #cards .card.jolly .description {
+  background-color: white;
+  padding: 50px;
+  height: 100px;
+  position: relative;
+}
+body #cards .card.jolly .description:before {
+  content: 'WILDCARD - ONLY FOR LEVEL 3';
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #000;
+}
+body #cards .card .back {
+  display: none;
+}
+body #cards .card .marker {
+  display: inline-block;
+  margin: 0mm;
+  width: 32mm !important;
+}
+body #cards .card .marker img {
+  padding: 6mm;
+  background: #fff;
+  width: calc(100% - 4mm);
+  margin-bottom: 0mm !important;
+}
+body #cards .card .titleBox {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 42mm);
+  margin-left: 10mm;
+}
+body #cards .card .titleBox p {
+  margin-top: 0;
+}
+body #cards .card .titleBox .title {
+  font-size: 11pt;
+  font-weight: 600;
+}
+body #cards .card.Technique {
+  background-color: #6ac0e7;
+  color: #FFFFFF;
+  width: 100mm;
+}
+body #cards .card.Technology {
+  background-color: #5bba7c;
+  color: #FFFFFF;
+}
+body #cards .card.Task {
+  background-color: #bc1622;
+  color: #FFFFFF;
+}
+body #cards .card.Team {
+  background-color: #f7b033;
+  color: #000;
+}
+body #cards .card.Action {
+  background-color: #fff;
+  color: #000;
+}
+body #cards .card.Action img {
+  padding: 3mm;
+  background: #fff;
+  width: calc(100% - 4mm);
+  margin-bottom: 0mm !important;
+}
+body #cards .card.Action .id {
+  display: none;
+}
+body #cards .card.Action .titleBox {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  margin-left: 0;
+}
+body #cards .card.Action .titleBox .title {
+  margin-top: 3mm;
+  font-size: 16pt !important;
+  text-transform: uppercase;
+}
+body #cards .card.Action .titleBox .type {
+  display: none;
+}
+body #cards .card.Action .description {
+  display: none;
+}
+body #cards .card.Action .marker {
+  width: 100% !important;
+  margin-top: 1mm;
+}
+body #cards .card.Action#card_10,
+body #cards .card.Action#card_11,
+body #cards .card.Action#card_12,
+body #cards .card.Action#card_13 {
+  display: none;
+}
+body #cards .card.Action#card_14 {
+  border: 1px solid #262626;
+}
+body #cards .card.Action#card_19 {
+  background: #ffedc4;
+  border: 1px solid #262626;
+}
+body #cards .card p.description {
+  margin-top: 3mm;
+}
+body #cards .card p.inclusionTips {
+  font-size: 95%;
+  padding: 6mm 4mm;
+  margin: 0;
+}
+body #cards .card p.inclusionTips:before {
+  content: 'INCLUSION TIPS';
+  display: block;
+  margin-bottom: 4mm;
+}
+body #cards .card .back {
+  display: none;
+}
+body #cards .card .id {
+  position: absolute;
+  top: 2mm;
+  right: 2mm;
+  margin: 0;
+}
+body.blackAndWhite #cards .card {
+  margin: 0.5mm !important;
+  color: #000 !important;
+  border: 1px solid #000;
+  background-color: white !important;
+}
+body.bigBoard #cards .card {
+  width: 75mm !important;
+  height: 100mm;
+  font-size: 9.5pt;
+}
+body.bigBoard #cards .card .title {
+  font-size: 11pt;
+  font-weight: 600;
+}
+body.bigBoard #cards .card.Technique {
+  width: 145mm !important;
+}
+body.mediumBoard #cards .card {
+  width: 65mm !important;
+  height: 90mm;
+  font-size: 13pt;
+}
+body.mediumBoard #cards .card .title {
+  font-size: 13pt;
+  font-weight: 600;
+}
+body.mediumBoard #cards .card.Technique {
+  width: 130mm !important;
+}
+body.twoK #cards .card .marker {
+  width: 25mm;
+}
+body.backSide #cards .card .front {
+  display: none;
+}
+body.backSide #cards .card .back {
+  display: block;
+}
+body.backSide #cards .card .back .cardType {
+  font-size: 120%;
+  font-weight: bold;
+}
+body.backSide #cards .card table {
+  position: absolute;
+  bottom: 2%;
+  left: 0;
+  right: 0;
+  width: 96%;
+  font-size: 75%;
+  background-color: white;
+  margin: auto;
+  border: none;
+  border-collapse: collapse;
+}
+body.backSide #cards .card table td {
+  color: #000;
+  border: 1px solid #000;
+  width: 33%;
+  padding: 1mm;
+}
+body.backSide #cards .card table td.icon {
+  width: 5%;
+  font-size: 160%;
+}
+@media print {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff;
+    width: 21cm;
+    height: 29.7cm;
+    margin: auto;
+    color: #000;
+  }
+  body #header {
+    display: block;
+  }
+  body .section-header {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+  }
+  body #title {
+    margin-top: 40vh;
+  }
+  body #sheetData {
+    display: none;
+  }
+  body #tqShowIP {
+    display: none;
+  }
+}
+/*# sourceMappingURL=style.css.map */

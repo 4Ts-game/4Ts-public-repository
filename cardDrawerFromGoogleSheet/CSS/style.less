@@ -1,0 +1,483 @@
+@font-face {
+  font-family: 'i4tIcon';
+  src: url('fonts/i4tIcon.ttf?syug3q') format('truetype'),
+  url('fonts/i4tIcon.woff?syug3q') format('woff'),
+  url('fonts/i4tIcon.svg?syug3q#i4tIcon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'i4tIcon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-task:before {
+  content: "\e900";
+}
+
+.icon-time:before {
+  content: "\e901";
+}
+
+.icon-technology:before {
+  content: "\e902";
+}
+
+.icon-time1:before {
+  content: "\e903";
+}
+
+.icon-team:before {
+  content: "\e904";
+}
+
+
+body {
+  background: #262626;
+  font-family: sans-serif;
+  padding: 0 150px;
+  color: #fff;
+
+
+  h3 {
+    font-weight: normal;
+  }
+
+  label {
+    position: relative;
+    display: inline-block;
+    width: 70mm;
+    font-size: 16pt;
+  }
+
+  select {
+    font-size: 14pt;
+    width: 50mm;
+  }
+
+  a {
+    color: #ffffff;
+  }
+
+  #pleiadeLogo {
+    width: 20vw;
+    margin-bottom: 5mm;
+  }
+
+  #header {
+    display: none;
+  }
+
+  #title {
+    margin-top: 20mm;
+  }
+
+  #sheetData {
+    text-align: left;
+    margin-top: 5mm;
+    display: inline-block;
+    width: 50vw;
+    vertical-align: top;
+    margin-left: 10mm
+  }
+
+  button {
+    background-color: #008c00;
+    border: none;
+    color: white;
+    padding: 4mm;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      background-color: #004f00;
+    }
+
+    &[disabled] {
+      pointer-events: none;
+      opacity: .3;
+    }
+  }
+
+  #sheetData input {
+    font-size: 100%;
+    padding: 2mm;
+    text-align: left;
+    border: none;
+    background: rgb(255, 255, 255);
+    margin-bottom: 3mm;
+
+    &#sheetID {
+      width: 25vw;
+      font-weight: bold;
+    }
+
+    &#tabID {
+      width: 10vw;
+      font-weight: bold;
+    }
+  }
+
+  #cards {
+    display: block;
+    width: 230mm;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    /*width: 100%;*/
+
+    .section-header {
+      page-break-before: always;
+
+      h2 {
+      }
+    }
+
+    .card {
+      position: relative;
+      display: inline-block;
+      text-align: left;
+      width: 50mm;
+      height: 65mm;
+      padding: 5mm;
+      margin: 1mm;
+      font-family: sans-serif;
+      font-size: 12pt;
+      background: aliceblue;
+      vertical-align: top;
+
+      &.jolly {
+        .title {
+          background-color: white;
+          padding: 50px;
+        }
+
+        .description {
+          background-color: white;
+          padding: 50px;
+          height: 100px;
+          position: relative;
+
+          &:before {
+            content: 'WILDCARD - ONLY FOR LEVEL 3';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #000;
+
+          }
+        }
+
+      }
+
+      .back {
+        display: none
+      }
+
+      .marker {
+        display: inline-block;
+        margin: 0mm;
+        width: 32mm !important;
+
+        img {
+          padding: 6mm;
+          background: #fff;
+          width: calc(100% - 4mm);
+          margin-bottom: 0mm !important;
+        }
+      }
+
+      .titleBox {
+        display: inline-block;
+        vertical-align: top;
+        width: calc(100% - 42mm);
+        margin-left: 10mm;
+
+        p {
+          margin-top: 0;
+        }
+
+        .title {
+          font-size: 11pt;
+          font-weight: 600;
+          // word-break: break-word;
+        }
+      }
+
+      &.Technique {
+        background-color: #6ac0e7;
+        color: #FFFFFF;
+        width: 100mm;
+      }
+
+      &.Technology {
+        background-color: #5bba7c;
+        color: #FFFFFF;
+      }
+
+      &.Task {
+        background-color: #bc1622;
+        color: #FFFFFF;
+      }
+
+      &.Team {
+        background-color: #f7b033;
+        color: #000;
+      }
+
+      &.Action {
+        background-color: #fff;
+        color: #000;
+        //height: 90mm !important;
+
+        &.suggestion {
+          //height: 100mm !important;
+        }
+
+        img {
+          padding: 3mm;
+          background: #fff;
+          width: calc(100% - 4mm);
+          margin-bottom: 0mm !important;
+        }
+
+        .id {
+          display: none;
+        }
+
+        .titleBox {
+          display: inline-block;
+          vertical-align: top;
+          width: 100%;
+          margin-left: 0;
+
+          .title {
+            margin-top: 3mm;
+            font-size: 16pt !important;
+            text-transform: uppercase;
+          }
+
+          .type {
+            display: none;
+          }
+
+        }
+
+        .description {
+          display: none;
+        }
+
+        .marker {
+          width: 100% !important;
+          margin-top: 1mm;
+        }
+
+        &#card_10, &#card_11, &#card_12, &#card_13 {
+          display: none;
+        }
+
+        &#card_14 {
+          // background: #3e1e57;
+          border: 1px solid #262626;
+        }
+
+        &#card_19 {
+          background: #ffedc4;
+          border: 1px solid #262626;
+          //color: #000;
+        }
+
+      }
+
+      p {
+
+        &.description {
+          margin-top: 3mm;
+        }
+
+        &.inclusionTips {
+          font-size: 95%;
+          padding: 6mm 4mm;
+          margin: 0;
+
+          &:before {
+            content: 'INCLUSION TIPS';
+            display: block;
+            margin-bottom: 4mm;
+          }
+        }
+      }
+
+      .back {
+        display: none
+      }
+
+
+      .id {
+        position: absolute;
+        top: 2mm;
+        right: 2mm;
+        margin: 0;
+      }
+    }
+  }
+
+  &.blackAndWhite {
+
+    #cards {
+      .card {
+        margin: .5mm !important;
+        color: #000 !important;
+        border: 1px solid #000;
+        background-color: white !important;
+      }
+    }
+  }
+
+  &.bigBoard {
+    #cards {
+      .card {
+        width: 75mm !important;
+        height: 100mm;
+        font-size: 9.5pt;
+
+        .title {
+          font-size: 11pt;
+          font-weight: 600;
+        }
+
+        &.Technique {
+          width: 145mm !important;
+        }
+      }
+    }
+  }
+
+  &.mediumBoard {
+    #cards {
+      .card {
+        width: 65mm !important;
+        height: 90mm;
+        font-size: 13pt;
+
+        .title {
+          font-size: 13pt;
+          font-weight: 600;
+        }
+
+        &.Technique {
+          width: 130mm !important;
+        }
+
+      }
+    }
+  }
+
+
+  &.twoK {
+    #cards {
+      .card {
+        .marker {
+          width: 25mm;
+        }
+      }
+    }
+  }
+
+  &.backSide {
+    #cards {
+      .card {
+        .front {
+          display: none
+        }
+
+        .back {
+          display: block;
+
+          .cardType {
+            font-size: 120%;
+            font-weight: bold;
+          }
+        }
+
+        table {
+          position: absolute;
+          bottom: 2%;
+          left: 0;
+          right: 0;
+          width: 96%;
+          font-size: 75%;
+          background-color: white;
+          margin: auto;
+          border: none;
+          border-collapse: collapse;
+
+          td {
+            color: #000;
+            border: 1px solid #000;
+            width: 33%;
+            padding: 1mm;
+
+            &.icon {
+              width: 5%;
+              font-size: 160%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff;
+
+    width: 21cm;
+    height: 29.7cm;
+
+    margin: auto;
+    color: #000;
+
+    #header {
+      display: block;
+    }
+
+    .section-header {
+      //page-break-before: unset;
+      visibility: hidden;
+      height: 0;
+      overflow: hidden;
+    }
+
+    #title {
+      margin-top: 40vh;
+    }
+
+    #sheetData {
+      display: none;
+    }
+
+    #tqShowIP {
+      display: none;
+    }
+  }
+}
+
+
+
