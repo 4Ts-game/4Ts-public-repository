@@ -1263,6 +1263,19 @@ boardPattern( [ column(1, '018',
 		column(4, '',
 		       '', '', '', '',
 		       '', '', '', '') ]).
+/* Role Play ftf+ftf(writing text)+ftf*/
+boardPattern( [ column(1, '018',
+		       '111', '203', '305', '',
+		       '102', '201', '306', ''),
+		column(2, '019',
+		       '101', '203', '308', '310',
+		       '108', '206', '309', '310'),
+		column(3, '',
+		       '', '', '', '',
+		       '', '', '', ''),
+		column(4, '',
+		       '', '', '', '',
+		       '', '', '', '') ]).
 /* Role Play online+online+online*/
 boardPattern( [ column(1, '018',
 		       '111', '203', '305', '',
