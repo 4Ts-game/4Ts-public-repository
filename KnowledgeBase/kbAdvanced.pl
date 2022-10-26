@@ -392,38 +392,40 @@ mostSpecificInconsistentItem(_, _, _, _, _, Result) :-
 */
 
 % Writing a report
-ttt('101', or(['201', '202', '203']), or(['308', '304']), 1).                 % text editor or wiki
-ttt('101', or(['201', '202', '203']), and([or(['308', '304']), '301']), 1).   % (text editor or wiki) and forum
-ttt('101', or(['201', '202', '203']), and([or(['308', '304']), '310']), 1).   % (text editor or wiki) and no tech
+ttt('101', or(['201', '202', '203']), or(['308', '304']), 1).          % individual learner or multiple people with text editor or wiki
+ttt('101', or(['202', '203']), and([or(['308', '304']), '301']), 1).   % multiple people with (text editor or wiki) and forum
+ttt('101', or(['202', '203']), and([or(['308', '304']), '310']), 1).   % multiple people with (text editor or wiki) and no tech
 % Studying
 ttt('102', or(['201', '202', '203']), '306', 1).
 % Finding materials
 ttt('103', or(['201', '202', '203']), '307', 1).
 % Preparing a list
-ttt('104', or(['201', '202', '203', '204', '205', '206']), '308', 1).         % text editor
-ttt('104', or(['201', '202', '203', '204', '205', '206']), '301', 1).         % forum
-ttt('104', or(['201', '202', '203', '204', '205', '206']), and(['308', '301']), 1).   % text editor and forum
-ttt('104', or(['201', '202', '203', '204', '205', '206']), and(['308', '305']), 0).   % text editor and videoconference
-ttt('104', or(['201', '202', '203', '204', '205', '206']), and(['308', '310']), 0).   % text editor and no tech
+ttt('104', or(['201', '202', '203', '204', '205', '206']), '308', 1).         % individual learner or multiple people with text editor
+ttt('104', or(['202', '203', '204', '205', '206']), '301', 1).         % multiple people with forum
+ttt('104', or(['202', '203', '204', '205', '206']), and(['308', '301']), 1).   % multiple people with text editor and forum
+ttt('104', or(['202', '203', '204', '205', '206']), and(['308', '305']), 0).   % multiple people with text editor and videoconference
+ttt('104', or(['202', '203', '204', '205', '206']), and(['308', '310']), 0).   % multiple people with text editor and no tech
 % Commenting on someone else's work
-ttt('105', or(['201', '202', '203']), or(['308','304']), 1).                  % text editor or wiki
-ttt('105', or(['201', '202', '203']), and(['301', or(['308', '304'])]), 1).   % (text editor or wiki) and forum
-ttt('105', or(['201', '202', '203']), and(['310', or(['308', '304'])]), 1).   % (text editor or wiki) and no tech
-ttt('105', or(['201', '202', '203']), '301', 1).                              % forum
+ttt('105', or(['201', '202', '203']), or(['308','304']), 1).           % individual learner or multiple people with text editor or wiki
+ttt('105', or(['202', '203']), and(['301', or(['308', '304'])]), 1).   % multiple people with (text editor or wiki) and forum
+ttt('105', or(['202', '203']), and(['310', or(['308', '304'])]), 1).   % multiple people with (text editor or wiki) and no tech
+ttt('105', or(['202', '203']), '301', 1).                              % multiple people with forum
 % Preparing a presentation
-ttt('106', or(['201', '202', '203', '204']), and(['302', or(['301', '303', '310'])]), 1).
+ttt('106', or(['201', '202', '203', '204']), '302', 1).   % individual learner or multiple people
+ttt('106', or(['202', '203', '204']), and(['302', or(['301', '303', '310'])]), 1).  % multiple people
 % Carrying out an assignment
-ttt('107', or(['201', '202', '203']), and(['311', or(['301', '303', '310'])]), 1).
+ttt('107', or(['201', '202', '203']), '311', 1).    % individual learners or multiple people
+ttt('107', or(['202', '203']), and(['311', or(['301', '303', '310'])]), 1).   % multiple people
 % Giving a presentation
 ttt('108', '206', and(['309', '310']), 0).      % Projector and no tech
 ttt('108', '206', '303', 0).                    % IWB
 ttt('108', '206', '305', 0).                    % Video conference
 % Solving a problem
-ttt('109', or(['201', '202', '203', '206']), and(['308', '310']), 0).   % text editor and no tech
-ttt('109', or(['201', '202', '203', '206']), and(['308', '305']), 0).   % text editor and videoconference
-ttt('109', or(['201', '202', '203', '206']), '301', 1).                 % forum
-ttt('109', or(['201', '202', '203', '206']), and(['308', '301']), 1).   % text editor and forum
-ttt('109', or(['201', '202', '203', '206']), '308', 1).                 % text editor
+ttt('109', or(['202', '203', '206']), and(['308', '310']), 0).   % multiple people with text editor and no tech
+ttt('109', or(['202', '203', '206']), and(['308', '305']), 0).   % multiple people with text editor and videoconference
+ttt('109', or(['202', '203', '206']), '301', 1).                 % multiple people with forum
+ttt('109', or(['202', '203', '206']), and(['308', '301']), 1).   % multiple people with text editor and forum
+ttt('109', or(['201', '202', '203', '206']), '308', 1).          % individual learner or multiple people with text editor
 % Interviewing an expert
 ttt('110', or(['204', '205', '206']), '310', 0).                        % no tech
 ttt('110', or(['204', '205', '206']), '305', 0).                        % videoconference
@@ -433,7 +435,8 @@ ttt('111', '203', '301', 1).                          % forum
 ttt('111', '203', '305', 0).                          % videoconference
 ttt('111', '203', '310', 0).                          % no tech
 % Producing an artifact
-ttt('112', or(['201', '202', '203', '204', '205', '206']), and(['311', or(['303', '301', '310'])]), 1).
+ttt('112', '201', '311', 1).    % individual learner
+ttt('112', or(['202', '203', '204', '205', '206']), and(['311', or(['303', '301', '310'])]), 1).  % multiple people
 % Debating
 ttt('113', or(['202', '203', '204', '205', '206']), '301', 1).    % forum
 ttt('113', or(['202', '203', '204', '205', '206']), '305', 0).    % videoconference
