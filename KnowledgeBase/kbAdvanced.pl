@@ -188,20 +188,18 @@ getEmptySlotErrors(Task, Team, Tech1, Tech2, _ColN, _ColSection, []) :-
   atom(Task), atom(Team), atom(Tech1), atom(Tech2), !.
 getEmptySlotErrors(Task, Team, Tech1, Tech2, _ColN, _ColSection, []) :-
   var(Task), var(Team), var(Tech1), var(Tech2), !.
-getEmptySlotErrors(Task, Team, Tech1, Tech2, ColN, ColSection, Slots) :-
+getEmptySlotErrors(Task, _, _, _, ColN, ColSection, [slotCardPair(SlotID, SlotCardID)]) :-
+  % if Task is not specified, just report that as missing - anything else we say would be purely hypotethical
   var(Task), !,
     format(atom(SlotID), 'C~d-AB~s-CSS-TASK', [ColN, ColSection]),
-    task(SlotCardID, _),
-    getEmptySlotErrors('', Team, Tech1, Tech2, ColN, ColSection, OtherSlots),
-    append(OtherSlots, [slotCardPair(SlotID, SlotCardID)], Slots);
+    task(SlotCardID, _);
     % Task is instantiated
     fail.
-getEmptySlotErrors(Task, Team, Tech1, Tech2, ColN, ColSection, Slots) :-
+getEmptySlotErrors(_, Team, _, _, ColN, ColSection, [slotCardPair(SlotID, SlotCardID)]) :-
+  % if Team is not specified, just report that as missing - anything else we say would be purely hypotethical
   var(Team), !,
     format(atom(SlotID), 'C~d-AB~s-CSS-TEAM', [ColN, ColSection]),
-    team(SlotCardID, _),
-    getEmptySlotErrors(Task, '', Tech1, Tech2, ColN, ColSection, OtherSlots),
-    append(OtherSlots, [slotCardPair(SlotID, SlotCardID)], Slots);
+    team(SlotCardID, _);
     % Team is instantiated
     fail.
 getEmptySlotErrors(Task, Team, Tech1, Tech2, ColN, ColSection, Slots) :-
