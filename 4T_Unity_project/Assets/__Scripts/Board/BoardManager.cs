@@ -447,11 +447,17 @@ namespace FourT
             return null;
         }
 
+        bool lastErrorPlayed = false;
+
         public void ShowErrorInfo(int errType)
         {
             Transform ErrorBox = ErrorPanel.transform.Find("ErrorBox");
             Transform ErrorIcon = ErrorBox.transform.Find("ErrorImage");
             TextMeshProUGUI ErrorText = ErrorBox.transform.Find("ErrorDesc").GetComponent<TextMeshProUGUI>();
+            Transform ErrorClose = ErrorBox.transform.Find("Close");
+
+            if (FourTMarkersManager.I.HybridIsActive)
+                ErrorClose.gameObject.SetActive(false);
 
             Sprite ErrSprite = null;
             string ErrorTitle = "";
@@ -491,6 +497,15 @@ namespace FourT
                     break;
             }
 
+            if (!lastErrorPlayed)
+            {
+                lastErrorPlayed = true;
+
+                AudioSource source = GetComponent<AudioSource>();
+                source.clip = AlertManager.I.ErrorAudio;
+                source.Play();
+            }
+
             ErrorIcon.GetComponent<Image>().sprite = ErrSprite;
             ErrorText.text = ErrorTitle;
 
@@ -515,6 +530,7 @@ namespace FourT
 
         public void HideErrorInfo()
         {
+            lastErrorPlayed = false;
             ErrorPanel.gameObject.SetActive(false);
         }
 
@@ -530,14 +546,17 @@ namespace FourT
             if (FourTManager.I().Game.Level == 2 && Type == Card.CardType.Technique && !FourTMarkersManager.I.HybridIsActive)
                 return;
 
-            if (!CanAddCard && !forceShow)
-                return;
 
             if (MissingTechnique && Type != Card.CardType.Technique && FourTManager.I().Game.Level == 1)
             {
+                //AlertManager.I.HideAlert();
                 ShowErrorInfo(4);
                 return;
             }
+
+            if (!CanAddCard && !forceShow)
+                return;
+
 
             if (ErrorOnBoard)
             {
@@ -980,13 +999,15 @@ namespace FourT
             {
                 string title = InfoCard.transform.Find("Card/JollyTitle").GetComponent<TMP_InputField>().text;
                 ActualCard.Title = title;
-                Delogger.Log("Title", title);
+
+                //Delogger.Log("Title", title);
 
                 ActualBoardCard.Find("Card/Title").GetComponent<TMP_Text>().text = ActualCard.Title;
 
                 string desc = InfoCard.transform.Find("Card/JollyDesc").GetComponent<TMP_InputField>().text;
                 ActualCard.Description = desc;
-                Delogger.Log("Desc", desc);
+
+                //Delogger.Log("Desc", desc);
             };
 
             CardInfoPanel.GetComponent<CanvasGroup>().DOFade(0f, .5f).OnComplete(() =>

@@ -353,8 +353,8 @@ namespace FourT
 			foreach (CardPlaceHolder cPh in BoardManager.I.CardPlaceHolders)
 			{
 
-				if(cPh.CardId >= 0)
-					Debug.Log("cPh.CardId::: " + cPh.CardId);
+				//if(cPh.CardId >= 0)
+//					Debug.Log("cPh.CardId::: " + cPh.CardId);
 
 				if (cPh.HasBeenDrawed && cPh.CardId >= 0 && cPh.transform.childCount > 0)
 				{
@@ -382,6 +382,39 @@ namespace FourT
 
 			//Debug.Log("Cards on board :: " + FourTManager.I().Game.LocationAndCard.Count());
 
+
+
+			if (MissingTechnique && !SettingsManager.I.SettingsIsOpen && FourTManager.I().Game.LocationAndCard.Count() >= 1 && techniqueIsMissingCounter >= 6 && FourTManager.I().Game.Level == 1)
+			{
+
+				if(FourTManager.I().Game.LocationAndCard.Count() == 1)
+                {
+					Card c = null;
+					foreach (var pair in FourTManager.I().Game.LocationAndCard)
+					{
+						int cardId = pair.Value;
+						c = Card.CardByID(cardId.ToString());
+
+						if (c.Type == Card.CardType.Technique)
+							return;
+
+					}
+
+
+				}
+
+				//AlertManager.I.HideAlert();
+				BoardManager.I.ShowErrorInfo(4);
+
+				Debug.Log("LocationAndCard.Count:: " + FourTManager.I().Game.LocationAndCard.Count());
+
+				return;
+			}
+			else
+			{
+				BoardManager.I.HideErrorInfo();
+			}
+
 			if (KbOut.Error)
 			{
 				Debug.Log("ERROR");
@@ -390,16 +423,6 @@ namespace FourT
 				return;
 			}
 
-
-			if (MissingTechnique && !SettingsManager.I.SettingsIsOpen && FourTManager.I().Game.LocationAndCard.Count() >= 1 && techniqueIsMissingCounter >= 6 && FourTManager.I().Game.Level == 1)
-			{
-				BoardManager.I.ShowErrorInfo(4);
-				return;
-			}
-			else
-			{
-				BoardManager.I.HideErrorInfo();
-			}
 
 
 
@@ -600,11 +623,18 @@ namespace FourT
 			Markers = Markers.OrderBy(o => o.Id).ToList();
 		}
 
+		bool cornerError = false;
+		bool alignError = false;
+
+		float t = 0;
+		float timeToWait = 5;
+
 		bool SetBoardCorners()
 		{
 
 			if (CalibrationMarkers.Count() < 4)
 			{
+
 				CalibrationFailds++;
 				int lostMarker = -1;
 
@@ -618,9 +648,36 @@ namespace FourT
 
 				}
 				//				Debug.Log("Not all the corners of the board are visible");
-				DebugBox.text = $"The {lostMarker} corner is not visible.";
+				DebugBox.text = $"Corner {lostMarker} is not visible.";
 				Error = true;
+
+				if (t == 0)
+					t = Time.time;
+
+				//Debug.Log("t::: " + t);
+				//Debug.Log("Time.time - t::: " + (Time.time - t));
+
+				if (!cornerError && Time.time - t > timeToWait && !AlertManager.I.AlertElement.gameObject.activeSelf && lostMarker != -1)
+                {
+					cornerError = true;
+
+					t = Time.time;
+					AlertManager.I.ShowAlert(DebugBox.text);
+				}
+
 				return false;
+
+			} else
+            {
+				t = 0;
+
+				if (cornerError)
+                {
+					cornerError = false;
+					AlertManager.I.HideAlert();
+					t = 0;
+				}
+				
 			}
 
 			CalibrationFailds = 0;
@@ -694,12 +751,38 @@ namespace FourT
 			int diff = (int)(PhysicBoard.TopRight.Corners[0].Y - PhysicBoard.TopLeft.Corners[0].Y);
 			if (diff > 20 || diff < -20)
 			{
-				DebugBox.text = $"Board is not correctly Aligned: the difference between the two Xs is <b>{diff}px</b>";
+				DebugBox.text = $"Board is not correctly aligned: the difference between the two Xs is <b>{diff}px</b>";
 				Error = true;
+
+				//if (t == 0)
+				//	t = Time.time;
+
+				//Debug.Log("Time.time: " + Time.time);
+				//Debug.Log("t: " + t);
+				//Debug.Log("Time.time - t: " + (Time.time - t));
+				//Debug.Log("timeToWait: " + timeToWait);
+
+				if (!alignError && Time.time - t > timeToWait && !AlertManager.I.AlertElement.gameObject.activeSelf)
+				{
+					alignError = true;
+
+					t = Time.time;
+					AlertManager.I.ShowAlert(DebugBox.text);
+				}
 
 				//todo: open an alert "The board is not aligned correctly"
 
 				return false;
+
+			} else
+            {
+				if (alignError)
+				{
+					alignError = false;
+					AlertManager.I.HideAlert();
+					t = 0;
+				}
+
 			}
 
 			//Debug.Log("-------------------------------------");

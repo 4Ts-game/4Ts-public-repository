@@ -42,9 +42,11 @@ namespace FourT
 
         public static KbOut Load(string answer)
         {
-//            Delogger.Log("KbOut Load", answer);
+            //            Delogger.Log("KbOut Load", answer);
             /*TextAsset asset = Resources.Load("Data/" + sample) as TextAsset;
             Stream s = new MemoryStream(asset.bytes);*/
+
+
             XElement kbAnswer = XElement.Parse(answer);
 
             KbOut kbOut = new KbOut();
@@ -70,10 +72,11 @@ namespace FourT
                     case "inconsistent-details":
                         var errorCode = xElement.Element("code");
 
-                        if (errorCode != null && errorCode.Value != "")
+                        if (errorCode != null && errorCode.Value != "" && !BoardManager.I.MissingTechnique)
                         {
 
                             Debug.Log("errorCode.Value:   " + errorCode.Value);
+                            Debug.Log("BoardManager.I.MissingTechnique:   " + BoardManager.I.MissingTechnique);
 
                             ErrorMessage errorMessage = AlertManager.I.GetErrorMessageById(errorCode.Value);
 
@@ -85,14 +88,18 @@ namespace FourT
                             }
 
                             if (errorMessage != null)
-                                AlertManager.I.ShowAlert(errorMessage.Message);
+                            {
+                                string errorText = $"Error {errorCode.Value}<br><br>{errorMessage.Message}";
+                                AlertManager.I.ShowAlert(errorText);
+                            }
 
                             Error = true;
-
                         }
                         else {
+
                             AlertManager.I.HideAlert();
                             Error = false;
+
                         }
 
 

@@ -153,7 +153,7 @@ namespace FourT
 
                     if (gameWithSameNameExist)
                     {
-                        AlertManager.I.ShowAlert($"A game with the name '{gameData.Name}' already exist.<br>Do you whant to replace it or add it as new?", () =>
+                        AlertManager.I.ShowAlert($"A game with the name '{gameData.Name}' already exists.<br>Do you want to replace it or add it as new?", () =>
                         {
                             DeleteGame(gameData.Name);
                             AddGameFromFile(gameData);
@@ -225,6 +225,7 @@ namespace FourT
     public class GameData
     {
         public string Name;
+        public DateTime Date = DateTime.Now;
         public Board Data = new Board();
 
     }

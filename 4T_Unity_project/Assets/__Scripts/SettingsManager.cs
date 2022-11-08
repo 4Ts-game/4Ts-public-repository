@@ -50,13 +50,21 @@ namespace FourT
             NoWebcamAvailable.gameObject.SetActive(false);
             HybridNotAvailable.gameObject.SetActive(false);
             ResetBoard.gameObject.SetActive(true);
+
+
+            Debug.Log("FourTMarkersManager.I.HybridIsActive" + FourTMarkersManager.I.HybridIsActive);
+
+           // HybridSettings.Find("TurnOnHybrid").GetComponent<Button>().gameObject.SetActive(false);
+
             //If no webcam are available turn off Hybrid modality
-            if (WebCamTexture.devices.Length == 0 || FourTMarkersManager.I.WebcamUnavailable)
+            if ( (WebCamTexture.devices.Length == 0 || FourTMarkersManager.I.WebcamUnavailable))
             {
                 NoWebcamAvailable.gameObject.SetActive(true);
                 HybridSettings.Find("TurnOnHybrid").GetComponent<Button>().interactable = false;
 
-                AlertManager.I.ShowAlert("You need a webcam to play the Hybrid game");
+                if(FourTMarkersManager.I.HybridIsActive)
+                    AlertManager.I.ShowAlert("You need a webcam to play the Hybrid game");
+
                 ResetBoard.gameObject.SetActive(false);
             }
 
@@ -144,7 +152,7 @@ namespace FourT
 
                 FourTMarkersManager.I.ClearBoard();
 
-                HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Off";
+                HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "On";
                 HybridSettings.GetComponentInChildren<Image>().color = new Color32(134, 195, 18, 255);
                 HybridSettings.transform.Find("Label").GetComponent<TMP_Text>().text = "Hybrid Mode is ON";
                 CamSettings.gameObject.SetActive(true);
@@ -155,7 +163,7 @@ namespace FourT
             }
             else
             {
-                HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "On";
+                HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Off";
                 HybridSettings.GetComponentInChildren<Image>().color = new Color32(100, 100, 100, 255);
                 HybridSettings.transform.Find("Label").GetComponent<TMP_Text>().text = "Hybrid Mode is OFF";
                 CamSettings.gameObject.SetActive(false);
@@ -225,24 +233,27 @@ namespace FourT
                 } else
                 {
                     HybridNotAvailable.gameObject.SetActive(false);
-                    HybridSettings.Find("TurnOnHybrid").GetComponent<Button>().interactable = true;
+                    HybridSettings.Find("TurnOnHybrid").GetComponent<Button>().interactable = false;
+                    //HybridSettings.Find("TurnOnHybrid").GetComponent<Button>().interactable = true;
 
                 }
 
                 if (FourTMarkersManager.I.HybridIsActive)
                 {
-                    HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Off";
+                    HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "On";
                     HybridSettings.transform.Find("Label").GetComponent<TMP_Text>().text = "Hybrid Mode is ON";
                     CamSettings.gameObject.SetActive(true);
                     CamList.gameObject.SetActive(true);
+                    ResetBoard.gameObject.SetActive(true);
                 }
                 else
                 {
-
-                    HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "On";
+                    HybridSettings.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Off";
                     HybridSettings.transform.Find("Label").GetComponent<TMP_Text>().text = "Hybrid Mode is OFF";
                     CamSettings.gameObject.SetActive(false);
                     CamList.gameObject.SetActive(false);
+                    ResetBoard.gameObject.SetActive(false);
+
                 }
 
                 SettingsPanel.gameObject.SetActive(true);

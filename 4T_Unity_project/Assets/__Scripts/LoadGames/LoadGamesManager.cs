@@ -29,10 +29,13 @@ namespace FourT
 
         public Transform NameAlert;
 
+        public GameObject CreditsWindow;
+
         public Button[] Levels;
         public Button[] GameTypes;
 
         public Button[] SheetButtons;
+
 
 
         public List<GoogleSheetElement> GoogleSheets;
@@ -203,11 +206,15 @@ namespace FourT
             {
                 SavedGamesBox.SetActive(true);
 
-                foreach (GameData gD in FourTManager.I().Persistence.Games)
+
+                List<GameData> games = FourTManager.I().Persistence.Games;
+                games.Sort((x, y) => DateTime.Compare(y.Date, x.Date));
+
+                foreach (GameData gD in games)
                 {
 
                     GameObject instance = Instantiate(SavedGameListElementPrefab, SavedGameListBox.transform);
-                    instance.transform.Find("Label").GetComponent<TMP_Text>().text = gD.Name + " (L" + gD.Data.Level + ")";
+                    instance.transform.Find("Label").GetComponent<TMP_Text>().text = gD.Name + "<br><size=50%>(L" + gD.Data.Level + ") " + gD.Date.ToString("dd-MM-yyyy HH:mm:ss");
 
                     instance.transform.Find("Play").GetComponent<Button>().onClick.AddListener(() => {
                         LoadGame(gD.Name);
@@ -321,9 +328,23 @@ namespace FourT
             });
         }
 
+
         public void Quit ()
         {
             Application.Quit ();
+        }
+
+        public void ToggleCredits()
+        {
+            if (CreditsWindow.activeSelf)
+            {
+                CreditsWindow.SetActive(false);
+
+            } else
+            {
+                CreditsWindow.SetActive(true);
+            }
+
         }
 
     }

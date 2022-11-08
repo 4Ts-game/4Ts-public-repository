@@ -71,14 +71,10 @@ MonoBehaviour:
   NoDownloadData: 0
   DownloadDataAlsoOutsideEditor: 0
   Config: {fileID: 11400000, guid: 696f9841639937e40a5c150ddfe8216f, type: 2}
-  ServerURL: 
+  ServerURL: http://g4t.itd.cnr.it:8000/
   CardsSetup:
     setuppableStateValue: 0
     processesToBeCompleted: 0
-  Sheet:
-    Label: 
-    Id: 
-    TabId: 
 --- !u!114 &7046091047287955370
 MonoBehaviour:
   m_ObjectHideFlags: 0

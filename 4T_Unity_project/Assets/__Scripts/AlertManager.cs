@@ -37,17 +37,20 @@ namespace FourT
 
         }
 
-        float lastErrorPlayedOn;
+        bool lastErrorPlayed = false;
 
-        public void ShowAlert(string text, Action callback = null, Action cancelCallback = null, bool allowCancel = true, string cancelLabel = "Cancel", string okLabel = "Ok")
+        public void ShowAlert(string text, Action callback = null, Action cancelCallback = null, bool allowCancel = true, string cancelLabel = "Cancel", string okLabel = "Ok", bool resetBoard = true)
         {
+
+            if (AlertElement.gameObject.activeSelf)
+                return;
 
             //if (FourTMarkersManager.I != null && FourTMarkersManager.I.HybridIsActive)
             //    FourTMarkersManager.I.Reset();
 
-            if (Time.time - lastErrorPlayedOn > 10)
+            if(!lastErrorPlayed)
             {
-                lastErrorPlayedOn = Time.time;
+                lastErrorPlayed = true;
 
                 AudioSource source = GetComponent<AudioSource>();
                 source.clip = ErrorAudio;
@@ -98,10 +101,11 @@ namespace FourT
 
         public void HideAlert()
         {
+            lastErrorPlayed = false;
             if (AlertElement.gameObject.activeSelf)
             {
-                if (FourTMarkersManager.I != null && FourTMarkersManager.I.HybridIsActive)
-                    FourTMarkersManager.I.Reset();
+                //if (FourTMarkersManager.I != null && FourTMarkersManager.I.HybridIsActive)
+                //    FourTMarkersManager.I.Reset();
 
                 AlertTextPlaceHolder.text = "";
                 AlertElement.gameObject.SetActive(false);
