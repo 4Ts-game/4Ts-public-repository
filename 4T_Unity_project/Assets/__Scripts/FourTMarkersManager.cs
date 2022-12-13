@@ -893,15 +893,17 @@ namespace FourT
 		void setPosInGrid(Marker m)
 		{
 
+			int tollerance = 10;
+
 			if (m.Id < SuggestionsMarker)
 				return;
 
 			if (CalibrationMarkers.Count < 4)
 				return;
 
+			BottomLeftCorner = PhysicBoard.BottomLeft.Corners[1];
 			TopLeftCorner = PhysicBoard.TopLeft.Corners[2];
 			TopRightCorner = PhysicBoard.TopRight.Corners[3];
-			BottomLeftCorner = PhysicBoard.BottomLeft.Corners[1];
 
 			float boardWidth = TopRightCorner.X - TopLeftCorner.X;
 			float boardHeight = BottomLeftCorner.Y - TopLeftCorner.Y;
@@ -909,8 +911,8 @@ namespace FourT
 			float modulX = (boardWidth / Cols);
 			float modulY = boardHeight / Rows;
 
-			float markerRelativeX = m.Corners[0].X + 10 - TopLeftCorner.X;
-			float markerRelativeY = m.Corners[0].Y + 10 - TopLeftCorner.Y;
+			float markerRelativeX = m.Corners[0].X + tollerance - TopLeftCorner.X;
+			float markerRelativeY = m.Corners[0].Y + tollerance - TopLeftCorner.Y;
 			int remainder;
 
 			//Delogger.Log("markerRelativeX", markerRelativeX);
