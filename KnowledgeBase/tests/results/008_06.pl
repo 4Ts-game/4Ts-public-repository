@@ -1,1 +1,1 @@
-result(['C2-ABA-CSS-TEC1'],[error('204',_)],[],[]).
+result([],[],[slotCardPair('C3-ABB-CSS-TASK','104'),slotCardPair('C3-ABB-CSS-TEAM','206'),slotCardPair('C3-ABB-CSS-TEC1','305'),slotCardPair('C3-ABB-CSS-TEC1','308'),slotCardPair('C3-ABB-CSS-TEC1','310'),slotCardPair('C3-ABB-CSS-TEC2','305'),slotCardPair('C3-ABB-CSS-TEC2','308'),slotCardPair('C3-ABB-CSS-TEC2','310')],[]).

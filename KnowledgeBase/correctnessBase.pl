@@ -34,23 +34,23 @@ checkCorrectness_base(ListOfColumns, [], []) :-
 	% debug_format('   Bag Length = ~d~n', [Len]),
 	Len > 0,
     !.
-checkCorrectness_base(ListOfColumns, [WrongSlot], [ErrorMsg]) :-
+checkCorrectness_base(ListOfColumns, [WrongSlotResult], [ErrorMsg]) :-
     controlCard(SuggestionCard, 'call-for-suggestion'),
     removeSuggestionCard(SuggestionCard, ListOfColumns, L1),
 	unbindSlots(L1, L2),
-    %% debug_format('correctness check across patterns fails with L2=~w~n', [L2]),
-    %% debug_format('   trying with reduced board configurations~n', []),
+    % debug_format('correctness check across patterns fails with L2=~w~n', [L2]),
+    % debug_format('   trying with reduced board configurations~n', []),
     findall((US, L3), tentativeUnbindSlot(L2, US, L3), Bag),
-    %% length(Bag, N),
-    %% debug_format('   #UnboundSlots = ~d, UnboundSlots = ~w~n', [N, Bag]).
+    % length(Bag, N),
+    % debug_format('   #UnboundSlots = ~d, UnboundSlots = ~w~n', [N, Bag]),
     tryReducedListOfColumns(Bag, WrongSlot),
-    convertSlotNameIntoGenericError(WrongSlot, ErrorMsg).
+    convertSlotNameIntoGenericError(WrongSlot, WrongSlotResult, ErrorMsg).
 checkCorrectness_base(ListOfColumns, ['C1-CSW-TECHNIQUE'], [ErrorMsg]) :-
-    convertSlotNameIntoGenericError('C1-CSW-TECHNIQUE', ErrorMsg),
+    convertSlotNameIntoGenericError('C1-CSW-TECHNIQUE', _, ErrorMsg),
     debug_format('checkCorrectness_base catchall with ListOfColumns=~w. Should never happen.~n', [ListOfColumns]).
 
 tryReducedListOfColumns([], WrongSlot) :-
-    WrongSlot = 'C1-CSW-TECHNIQUE',
+    WrongSlot = 'MULTIPLE',
     debug_format('cannot find reduced LoC in tryReducedListOfColumns (multiple invalid slots); returning top level error instead~n', []).
 tryReducedListOfColumns([(Slot, LoC) | Rest], WrongSlot) :-
     %debug_format('try reducing (~w, ~w)~n', [Slot, LoC]),

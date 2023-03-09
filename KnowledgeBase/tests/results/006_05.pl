@@ -1,1 +1,1 @@
-result([],[],[slotCardPair('C3-ABA-CSS-TASK','102'),slotCardPair('C3-ABA-CSS-TEAM','201'),slotCardPair('C3-ABA-CSS-TEC1','306'),slotCardPair('C3-ABA-CSS-TEC2','306'),slotCardPair('C3-ABB-CSS-TASK','113'),slotCardPair('C3-ABB-CSS-TEAM','206'),slotCardPair('C3-ABB-CSS-TEC1','310'),slotCardPair('C3-ABB-CSS-TEC2','310'),slotCardPair('C3-CSW-TECHNIQUE','007')],[]).
+result(['C2-ABB-CSS-TEC2'],[error('204','This Technology is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.')],[],[]).

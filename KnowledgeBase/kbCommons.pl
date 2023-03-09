@@ -24,7 +24,7 @@
            removeSuggestionCard/2,
            unbindSlotsWithSuggestion/4,
            error_details/2,
-           convertSlotNameIntoGenericError/2]).
+           convertSlotNameIntoGenericError/3]).
 
 :- use_module(kbBase, [card_instances/2, isTechnique/1]).
 
@@ -361,19 +361,21 @@ qualifiedSlotNames(ColNumber, ListOfNames) :-
 	format(atom(Prefix), 'C~d-', [ColNumber]),
 	maplist(atom_concat(Prefix), ULNs, ListOfNames). % curried
 
-convertSlotNameIntoGenericError(SlotName, error('201', GenericError)) :-
+convertSlotNameIntoGenericError('MULTIPLE', 'C1-CSW-TECHNIQUE', error('205', GenericError)) :-
+    error_details('205', GenericError),!.
+convertSlotNameIntoGenericError(SlotName, SlotName, error('201', GenericError)) :-
     sub_string(SlotName, _, _, 0, '-TECHNIQUE'),
     error_details('201', GenericError),!.
-convertSlotNameIntoGenericError(SlotName, error('202', GenericError)) :-
+convertSlotNameIntoGenericError(SlotName, SlotName, error('202', GenericError)) :-
     sub_string(SlotName, _, _, 0, '-TASK'),
     error_details('202', GenericError),!.
-convertSlotNameIntoGenericError(SlotName, error('203', GenericError)) :-
+convertSlotNameIntoGenericError(SlotName, SlotName, error('203', GenericError)) :-
     sub_string(SlotName, _, _, 0, '-TEAM'),
     error_details('203', GenericError),!.
-convertSlotNameIntoGenericError(SlotName, error('204', GenericError)) :-
+convertSlotNameIntoGenericError(SlotName, SlotName, error('204', GenericError)) :-
     sub_string(SlotName, _, _, 1, '-TEC'),
     error_details('204', GenericError),!.
-convertSlotNameIntoGenericError(SlotName, error('200', GenericError)) :-
+convertSlotNameIntoGenericError(SlotName, SlotName, error('200', GenericError)) :-
     error_details('200', GenericError),
     debug_format('Unrecognized slot name: [~w]~n', [SlotName]),!.
 
@@ -396,6 +398,7 @@ error_details('201', 'This Technique card is not placed in the appropriate posit
 error_details('202', 'This Task is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.').
 error_details('203', 'This Team is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.').
 error_details('204', 'This Technology is not the one expected in this slot by this instance of Technique. Read the Technique card again and make a different choice.').
+error_details('205', 'The board contains multiple problems. Read the cards again and review your choices.').
 
 
 

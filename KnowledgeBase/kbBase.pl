@@ -36,12 +36,9 @@ card_instances_base('004', ['39']).	% Peer review 2
 card_instances_base('005', ['40']).	% Peer review 3
 card_instances_base('006', ['41']).	% Case study 1
 card_instances_base('007', ['42']).	% Case study 2
-card_instances_base('008', ['23']).	% Pyramid for list 1
-card_instances_base('009', ['43']).	% Pyramid for list 2
-card_instances_base('010', ['44']).	% Pyramid for list 3
-card_instances_base('011', ['45']).	% Pyramid for problem solving 1
-card_instances_base('012', ['46']).	% Pyramid for problem solving 2
-card_instances_base('013', ['47']).	% Pyramid for problem solving 3
+card_instances_base('008', ['23']).	% Pyramid 1
+card_instances_base('009', ['43']).	% Pyramid 2
+card_instances_base('010', ['44']).	% Pyramid 3
 card_instances_base('014', ['48']).	% Discussion 1
 card_instances_base('015', ['49']).	% Discussion assignment 2
 card_instances_base('016', ['50']).	% Discussion artefact 2
@@ -77,12 +74,9 @@ technique('004', 'PEER REVIEW - PHASE II', peerreview, 2, 3).
 technique('005', 'PEER REVIEW - PHASE III', peerreview, 3, 3).
 technique('006', 'CASE STUDY - PHASE I', casestudy, 1, 2).
 technique('007', 'CASE STUDY - PHASE II', casestudy, 2, 2).
-technique('008', 'PYRAMID (FOR LIST PREPARATION) - PHASE I', pyramidforlist, 1, 3).
-technique('009', 'PYRAMID (FOR LIST PREPARATION) - PHASE II', pyramidforlist, 2, 3).
-technique('010', 'PYRAMID (FOR LIST PREPARATION) - PHASE III', pyramidforlist, 3, 3).
-technique('011', 'PYRAMID (FOR PROBLEM SOLVING) - PHASE I', pyramidforproblem, 1, 3).
-technique('012', 'PYRAMID (FOR PROBLEM SOLVING) - PHASE II', pyramidforproblem, 2, 3).
-technique('013', 'PYRAMID (FOR PROBLEM SOLVING) - PHASE III', pyramidforproblem, 3, 3).
+technique('008', 'PYRAMID - PHASE I', pyramid, 1, 3).
+technique('009', 'PYRAMID - PHASE II', pyramid, 2, 3).
+technique('010', 'PYRAMID - PHASE III', pyramid, 3, 3).
 technique('014', 'DISCUSSION - PHASE I (ALL CASES)', discussion, 1, 2).
 technique('015', 'DISCUSSION (TOWARDS ASSIGNMENT) - PHASE II', discussion, 2, 2).
 technique('016', 'DISCUSSION (TOWARDS ARTEFACT) - PHASE II', discussion, 2, 2).
@@ -699,129 +693,64 @@ boardPattern( [ column(1, '003',
 		       '108', '206', '305', '') ]).
 
 
-/* Case Study: task 2 in phase 1  pairs ftf,
-               task 2 in phase 2 ftf.
+/* Case Study: phase I and phase II, synchronous.
  */
 boardPattern( [ column(1, '006',
 		       '102', '201', '306', '',
-		       '109', or('202','203'), '308', '310'),
+		       '109', or('202','203'), or('310','305'), ''),
 		column(2, '007',
 		       '102', '201', '306', '',
-		       '113', '206', '310', ''),
+		       '113', '206', or('310','305'), ''),
 		column(3, '',
 		       '', '', '', '',
 		       '', '', '', ''),
 		column(4, '',
 		       '', '', '', '',
 		       '', '', '', '') ]).
-/* Case Study: task 2 in phase 1  pairs ftf,
-               task 2 in phase 2 online.
- */
-boardPattern( [ column(1, '006',
-		       '102', '201', '306', '',
-		       '109', or('202','203'), '308', '310'),
-		column(2, '007',
-		       '102', '201', '306', '',
-		       '', '', '', ''),
-		column(3, '',
-		       '113', '206', '301', '',
-       		 '', '', '', ''),
-		column(4, '',
-		       '', '', '', '',
-		       '', '', '', '') ]).
-/* Case Study: task 2 in phase 1  pairs online,
-               task 2 in phase 2 ftf.
- */
-boardPattern( [ column(1, '006',
-		       '102', '201', '306', '',
-       		 '', '', '', ''),
-		column(2, '',
-           '109', or('202','203'), '308', '301',
-		       '', '', '', ''),
-		column(3, '007',
-		       '102', '201', '306', '',
-		       '113', '206', '310', ''),
-		column(4, '',
-		       '', '', '', '',
-		       '', '', '', '') ]).
-/* Case Study: task 2 in phase 1  pairs online,
-               task 2 in phase 2 online.
+/* Case Study: phase I and phase II, asynchronous
  */
 boardPattern( [ column(1, '006',
 		       '102', '201', '306', '',
 		       '', '', '', ''),
 		column(2, '',
-           '109', or('202','203'), '308', '301',
+		       '109', or('202','203'), '301', '',
 		       '', '', '', ''),
 		column(3, '007',
 		       '102', '201', '306', '',
-		       '', '', '', ''),
+       		 '', '', '', ''),
 		column(4, '',
 		       '113', '206', '301', '',
 		       '', '', '', '') ]).
 
-/* Pyramid for list preparation:
-            task 2 phase 1 individual,
-            task 1 phase 2 pairs */
+/* Pyramid: phase Ib with individual learners
+*/
 boardPattern( [ column(1, '008',
 		       '102', '201', '306', '',
-		       '', '', '', ''),
-		column(2, '',
-		       '104', '201', '308', '',
-		       '', '', '', ''),
-		column(3, '009',
-		       '104', '202', or('301', '308'), or('', '301', '308'),
-		       '', '', '', ''),
-		column(4, '010',
-		       '104', '206', or('301', '308'), or('', '301', '308'),
+		       '104', '201', '308', ''),
+		column(2, '009',
+		       '102', '201', '306', '',
+		       '104', or('202','203'), '308', or('310','305')),
+		column(3, '010',
+		       '102', '201', '306', '',
+		       '104', '206', '308', or('310','305')),
+		column(4, '',
+		       '', '', '', '',
 		       '', '', '', '') ]).
-/* Pyramid for list preparation:
-            task 2 phase 1 pairs,
-            task 1 phase 2 small groups */
+
+/* Pyramid: phase Ib with pairs
+*/
 boardPattern( [ column(1, '008',
 		       '102', '201', '306', '',
-		       '', '', '', ''),
-		column(2, '',
-		       '104', '202', or('301', '308'), or('', '301', '308'),
-		       '', '', '', ''),
-		column(3, '009',
-		       '104', '203', or('301', '308'), or('', '301', '308'),
-		       '', '', '', ''),
-		column(4, '010',
-		       '104', '206', or('301', '308'), or('', '301', '308'),
-		       '', '', '', '') ]).
-
-/* Pyramid for problem solving:
-            task 2 phase 1 individual,
-            task 1 phase 2 pairs */
-boardPattern( [ column(1, '011',
+		       '104', '202', '308', or('310','305')),
+		column(2, '009',
 		       '102', '201', '306', '',
-		       '', '', '', ''),
-		column(2, '',
-		       '109', '201', '308', '',
-		       '', '', '', ''),
-		column(3, '012',
-		       '109', '202', or('301', '308'), or('', '301', '308'),
-		       '', '', '', ''),
-		column(4, '013',
-		       '109', '206', or('301', '308'), or('', '301', '308'),
-		       '', '', '', '') ]).
-/* Pyramid for problem solving:
-            task 2 phase 1 pairs,
-            task 1 phase 2 small groups */
-boardPattern( [ column(1, '011',
+		       '104', or('202','203'), '308', or('310','305')),
+		column(3, '010',
 		       '102', '201', '306', '',
-		       '', '', '', ''),
-		column(2, '',
-		       '109', '202', or('301', '308'), or('', '301', '308'),
-		       '', '', '', ''),
-		column(3, '012',
-		       '109', '203', or('301', '308'), or('', '301', '308'),
-		       '', '', '', ''),
-		column(4, '013',
-		       '109', '206', or('301', '308'), or('', '301', '308'),
+		       '104', '206', '308', or('310','305')),
+		column(4, '',
+		       '', '', '', '',
 		       '', '', '', '') ]).
-
 
 
 /* Discussion towards assignment:
