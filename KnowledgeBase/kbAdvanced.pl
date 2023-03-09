@@ -188,28 +188,31 @@ getEmptySlotErrors(Task, Team, Tech1, Tech2, _ColN, _ColSection, []) :-
   atom(Task), atom(Team), atom(Tech1), atom(Tech2), !.
 getEmptySlotErrors(Task, Team, Tech1, Tech2, _ColN, _ColSection, []) :-
   var(Task), var(Team), var(Tech1), var(Tech2), !.
-getEmptySlotErrors(Task, Team, Tech1, Tech2, ColN, ColSection, Slots) :-
+getEmptySlotErrors(Task, _, _, _, ColN, ColSection, [slotCardPair(SlotID, SlotCardID)]) :-
+  % if Task is not specified, just report that as missing - anything else we say would be purely hypotethical
   var(Task), !,
     format(atom(SlotID), 'C~d-AB~s-CSS-TASK', [ColN, ColSection]),
-    task(SlotCardID, _),
-    getEmptySlotErrors('', Team, Tech1, Tech2, ColN, ColSection, OtherSlots),
-    append(OtherSlots, [slotCardPair(SlotID, SlotCardID)], Slots);
+    task(SlotCardID, _);
     % Task is instantiated
     fail.
-getEmptySlotErrors(Task, Team, Tech1, Tech2, ColN, ColSection, Slots) :-
+getEmptySlotErrors(_, Team, _, _, ColN, ColSection, [slotCardPair(SlotID, SlotCardID)]) :-
+  % if Team is not specified, just report that as missing - anything else we say would be purely hypotethical
   var(Team), !,
     format(atom(SlotID), 'C~d-AB~s-CSS-TEAM', [ColN, ColSection]),
-    team(SlotCardID, _),
-    getEmptySlotErrors(Task, '', Tech1, Tech2, ColN, ColSection, OtherSlots),
-    append(OtherSlots, [slotCardPair(SlotID, SlotCardID)], Slots);
+    team(SlotCardID, _);
     % Team is instantiated
     fail.
 getEmptySlotErrors(Task, Team, Tech1, Tech2, ColN, ColSection, Slots) :-
   (var(Tech1), var(Tech2)), !,
-    % No technologies spefified
-    format(atom(SlotID), 'C~d-AB~s-CSS-TEC1', [ColN, ColSection]),
-    technology(SlotCardID, _),
-    Slots = [slotCardPair(SlotID, SlotCardID)];
+    % No technologies specified
+    format(atom(SlotID1), 'C~d-AB~s-CSS-TEC1', [ColN, ColSection]),    
+    format(atom(SlotID2), 'C~d-AB~s-CSS-TEC2', [ColN, ColSection]),
+    % We have either a single technology missing, or two of them - based on the patterns accepted by Task and Team
+    (kbAdvanced:valid_ttt_pattern(Task, Team, [Technology1,''], _),
+      Slots = [slotCardPair(SlotID1, Technology1)];
+      kbAdvanced:valid_ttt_pattern(Task, Team, [Technology1,Technology2], _),
+      Slots = [slotCardPair(SlotID1, Technology1),slotCardPair(SlotID2, Technology2)]
+    );
     % At least one tech is specified; we need to check if patterns for these combinations require two
     (var(Tech1),
       %Tech1 is not specified, Tech2 is
@@ -440,6 +443,7 @@ ttt('113', or(['202', '203', '204', '205', '206']), '305', 0).    % videoconfere
 ttt('113', or(['202', '203', '204', '205', '206']), '310', 0).    % no tech
 
 
+
 /* expand
   * expands ttt patterns resolving or/and predicates for teams and technologies
 */
@@ -462,8 +466,20 @@ expand(ttt(Task, Team, Tech, D)) :-
 
 assert_ttt_expanded(Task, Team, [Tech1, Tech2], D) :-
   %debug_format('Asserting ~p and ~p~n', [valid_ttt_pattern(Task, Team, [Tech1, Tech2], D), valid_ttt_pattern(Task, Team, [Tech2, Tech1], D)]),
-  assert(kbAdvanced:valid_ttt_pattern(Task, Team, [Tech1, Tech2], D)),
-  assert(kbAdvanced:valid_ttt_pattern(Task, Team, [Tech2, Tech1], D)), !.
+  % drop technologies which are incompatible with the team; but don't drop the whole pattern.
+  (valid_techs_for_team(Team, TeamTechs); TeamTechs = []),
+  (member(Tech1, TeamTechs),
+    Tech1Verified = Tech1;
+    Tech1Verified = ''
+  ),
+  (member(Tech2, TeamTechs),
+    Tech2Verified = Tech2;
+    Tech2Verified = ''
+  ),
+  (string_length(Tech1Verified, 0), string_length(Tech2Verified, 0);
+    assert(kbAdvanced:valid_ttt_pattern(Task, Team, [Tech1Verified, Tech2Verified], D)),
+    assert(kbAdvanced:valid_ttt_pattern(Task, Team, [Tech2Verified, Tech1Verified], D))
+  ), !.
   
 expand_all_TTTs :-
   retractall(kbAdvanced:valid_ttt_pattern(_,_,_)),
