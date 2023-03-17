@@ -34,8 +34,8 @@ card_instances_base('002', ['37']).	% Jigsaw 2
 card_instances_base('003', ['38']).	% Peer review 1
 card_instances_base('004', ['39']).	% Peer review 2
 card_instances_base('005', ['40']).	% Peer review 3
-card_instances_base('006', ['41']).	% Case study 1
-card_instances_base('007', ['42']).	% Case study 2
+card_instances_base('006', ['41']).	% Case study synchronous 1
+card_instances_base('007', ['42']).	% Case study synchronous 2
 card_instances_base('008', ['23']).	% Pyramid 1
 card_instances_base('009', ['43']).	% Pyramid 2
 card_instances_base('010', ['44']).	% Pyramid 3
@@ -45,6 +45,8 @@ card_instances_base('016', ['50']).	% Discussion artefact 2
 card_instances_base('017', ['51']).	% Discussion report 2
 card_instances_base('018', ['52']).	% Role play 1
 card_instances_base('019', ['53']).	% Role play 2
+card_instances_base('020', ['181']).	% Case study asynchronous 1
+card_instances_base('021', ['182']).	% Case study asynchronous 2
 
 /*
   *
@@ -72,8 +74,8 @@ technique('002', 'JIGSAW - PHASE II (JIGSAW GROUPS)', jigsaw, 2, 2).
 technique('003', 'PEER REVIEW - PHASE I', peerreview, 1, 3).
 technique('004', 'PEER REVIEW - PHASE II', peerreview, 2, 3).
 technique('005', 'PEER REVIEW - PHASE III', peerreview, 3, 3).
-technique('006', 'CASE STUDY - PHASE I', casestudy, 1, 2).
-technique('007', 'CASE STUDY - PHASE II', casestudy, 2, 2).
+technique('006', 'CASE STUDY SYNCHRONOUS - PHASE I', casestudysynchronous, 1, 2).
+technique('007', 'CASE STUDY SYNCHRONOUS - PHASE II', casestudysynchronous, 2, 2).
 technique('008', 'PYRAMID - PHASE I', pyramid, 1, 3).
 technique('009', 'PYRAMID - PHASE II', pyramid, 2, 3).
 technique('010', 'PYRAMID - PHASE III', pyramid, 3, 3).
@@ -83,6 +85,8 @@ technique('016', 'DISCUSSION (TOWARDS ARTEFACT) - PHASE II', discussion, 2, 2).
 technique('017', 'DISCUSSION (TOWARDS TEXT) - PHASE II', discussion, 2, 2).
 technique('018', 'ROLE PLAY - PHASE I', roleplay, 1, 2).
 technique('019', 'ROLE PLAY - PHASE II', roleplay, 2, 2).
+technique('020', 'CASE STUDY ASYNCHRONOUS - PHASE I', casestudyasynchronous, 1, 2).
+technique('021', 'CASE STUDY ASYNCHRONOUS - PHASE II', casestudyasynchronous, 2, 2).
 
 isTechnique('') :- !.
 isTechnique(Card) :-
@@ -693,11 +697,11 @@ boardPattern( [ column(1, '003',
 		       '108', '206', '305', '') ]).
 
 
-/* Case Study: phase I and phase II, synchronous.
+/* Case Study synchronous: phase I and phase II.
  */
 boardPattern( [ column(1, '006',
 		       '102', '201', '306', '',
-		       '109', or('202','203'), or('310','305'), ''),
+		       '109', or('202','203'), '308', or('310','305')),
 		column(2, '007',
 		       '102', '201', '306', '',
 		       '113', '206', or('310','305'), ''),
@@ -707,29 +711,29 @@ boardPattern( [ column(1, '006',
 		column(4, '',
 		       '', '', '', '',
 		       '', '', '', '') ]).
-/* Case Study: phase I and phase II, asynchronous
+/* Case Study asynchronous: phase I and phase II
  */
-boardPattern( [ column(1, '006',
+boardPattern( [ column(1, '020',
 		       '102', '201', '306', '',
 		       '', '', '', ''),
 		column(2, '',
-		       '109', or('202','203'), '301', '',
+		       '109', or('202','203'), '308', '301',
 		       '', '', '', ''),
-		column(3, '007',
+		column(3, '021',
 		       '102', '201', '306', '',
        		 '', '', '', ''),
 		column(4, '',
 		       '113', '206', '301', '',
 		       '', '', '', '') ]).
 
-/* Pyramid: phase Ib with individual learners
+/* Pyramid: phase I with individual learners
 */
 boardPattern( [ column(1, '008',
 		       '102', '201', '306', '',
 		       '104', '201', '308', ''),
 		column(2, '009',
 		       '102', '201', '306', '',
-		       '104', or('202','203'), '308', or('310','305')),
+		       '104', '202', '308', or('310','305')),
 		column(3, '010',
 		       '102', '201', '306', '',
 		       '104', '206', '308', or('310','305')),
@@ -737,14 +741,14 @@ boardPattern( [ column(1, '008',
 		       '', '', '', '',
 		       '', '', '', '') ]).
 
-/* Pyramid: phase Ib with pairs
+/* Pyramid: phase I with pairs
 */
 boardPattern( [ column(1, '008',
 		       '102', '201', '306', '',
 		       '104', '202', '308', or('310','305')),
 		column(2, '009',
 		       '102', '201', '306', '',
-		       '104', or('202','203'), '308', or('310','305')),
+		       '104', '203', '308', or('310','305')),
 		column(3, '010',
 		       '102', '201', '306', '',
 		       '104', '206', '308', or('310','305')),

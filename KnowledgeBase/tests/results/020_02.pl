@@ -1,0 +1,1 @@
+result([],[],[slotCardPair('C2-ABA-CSS-TEC2','308')],[]).

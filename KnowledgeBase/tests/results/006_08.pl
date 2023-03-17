@@ -1,1 +1,1 @@
-result([],[],[],[]).
+result([],[],[slotCardPair('C1-ABB-CSS-TEC1','308')],[]).
