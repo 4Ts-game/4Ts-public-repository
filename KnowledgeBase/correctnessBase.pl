@@ -53,12 +53,12 @@ tryReducedListOfColumns([], WrongSlot) :-
     WrongSlot = 'MULTIPLE',
     debug_format('cannot find reduced LoC in tryReducedListOfColumns (multiple invalid slots); returning top level error instead~n', []).
 tryReducedListOfColumns([(Slot, LoC) | Rest], WrongSlot) :-
-    %debug_format('try reducing (~w, ~w)~n', [Slot, LoC]),
+    % debug_format('try reducing (~w, ~w)~n', [Slot, LoC]),
     tryReducedListOfColumn(LoC, Result),
     ( Result = false ->
       tryReducedListOfColumns(Rest, WrongSlot)
       ;
-      ( %% debug_format('found reduced LoC: (~w, ~w)~n', [Slot, LoC]),
+      (% debug_format('found reduced LoC: (~w, ~w)~n', [Slot, LoC]),
         WrongSlot = Slot )
     ).
 
@@ -199,14 +199,14 @@ tentativeUnbindSlot([Col1, Col2, Col3, Col4], UnboundSlot, [Col1, Col2, Col3, Cl
     tentativeUnbindSlotInCol(Col4, UnboundSlot, CleanedCol4).
 
 
-tentativeUnbindSlotInCol(column(1, Technique,
-		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
-		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
-                'C1-CSW-TECHNIQUE',
-                column(1, _,
-                	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
-                       TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
-    is_not_empty(Technique).
+%tentativeUnbindSlotInCol(column(1, Technique,
+%		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
+%		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
+%                'C1-CSW-TECHNIQUE',
+%                column(1, _,
+%                	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
+%                       TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
+%    is_not_empty(Technique).
 tentativeUnbindSlotInCol(column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
