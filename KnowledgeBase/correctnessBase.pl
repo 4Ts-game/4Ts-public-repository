@@ -40,10 +40,27 @@ checkCorrectness_base(ListOfColumns, [WrongSlotResult], [ErrorMsg]) :-
 	unbindSlots(L1, L2),
     % debug_format('correctness check across patterns fails with L2=~w~n', [L2]),
     % debug_format('   trying with reduced board configurations~n', []),
-    findall((US, L3), tentativeUnbindSlot(L2, US, L3), Bag),
+    % As a first attempt we try to not take into consideration the possibility to change a technique card
+    findall((US, L3), tentativeUnbindSlot(excludeTechnique, L2, US, L3), Bag),
     % length(Bag, N),
     % debug_format('   #UnboundSlots = ~d, UnboundSlots = ~w~n', [N, Bag]),
     tryReducedListOfColumns(Bag, WrongSlot),
+    %debug_format('Attemp#1: WrongSlot is ~w~n', [WrongSlot]),
+    % if 'MULTIPLE' is returned, it is likely that this is a technique card level issue; fail this and try including technique card in the unbounds
+    not(WrongSlot=='MULTIPLE'),
+    convertSlotNameIntoGenericError(WrongSlot, WrongSlotResult, ErrorMsg).
+checkCorrectness_base(ListOfColumns, [WrongSlotResult], [ErrorMsg]) :-
+    controlCard(SuggestionCard, 'call-for-suggestion'),
+    removeSuggestionCard(SuggestionCard, ListOfColumns, L1),
+    unbindSlots(L1, L2),
+    % debug_format('correctness check across patterns fails with L2=~w~n', [L2]),
+    % debug_format('   trying with reduced board configurations~n', []),
+    % Second attempt: we try to also ubind technique cards
+    findall((US, L3), tentativeUnbindSlot(includeTechnique, L2, US, L3), Bag),
+    % length(Bag, N),
+    % debug_format('   #UnboundSlots = ~d, UnboundSlots = ~w~n', [N, Bag]),
+    tryReducedListOfColumns(Bag, WrongSlot),
+    % debug_format('Attemp#2: WrongSlot is ~w~n', [WrongSlot]),
     convertSlotNameIntoGenericError(WrongSlot, WrongSlotResult, ErrorMsg).
 checkCorrectness_base(ListOfColumns, ['C1-CSW-TECHNIQUE'], [ErrorMsg]) :-
     convertSlotNameIntoGenericError('C1-CSW-TECHNIQUE', _, ErrorMsg),
@@ -171,9 +188,9 @@ removeSuggestionCardCol(_SuggestionCard, Col, Col).
 
 
 /*
- * tentativeUnbindSlot/3
+ * tentativeUnbindSlot/4
  *
- * tentativeUnbindSlot(+ListOfColumns, -Slot, -ListCleaned)
+ * tentativeUnbindSlot(+TechniqueCheck, +ListOfColumns, -Slot, -ListCleaned)
  *
  * ListCleaned is a copy of ListOfColumns where each non empty slot (at a time) has been changed into unbound.
  * Slots are made unbound one at a time, from col 1 to col 4 and from row 1 to row 2.
@@ -183,31 +200,32 @@ removeSuggestionCardCol(_SuggestionCard, Col, Col).
  *
  * for testing purposes ('202' in col 1 is wrong):
  *
- ?- correctnessBase:tentativeUnbindSlot([column(1,'001','102','201','306','','','202','',''),
+ ?- correctnessBase:tentativeUnbindSlot(includeTechnique,
+                                        [column(1,'001','102','201','306','','','202','',''),
                                          column(2,'','106','203','302','310','108','206','309','310'),
                                          column(3,'002','101','203','310','308','108','206','309','310'),
                                          column(4,'','','','','','','','','')], US, UL).
  *
  */
-tentativeUnbindSlot([Col1, Col2, Col3, Col4], UnboundSlot, [CleanedCol1, Col2, Col3, Col4]) :-
-    tentativeUnbindSlotInCol(Col1, UnboundSlot, CleanedCol1).
-tentativeUnbindSlot([Col1, Col2, Col3, Col4], UnboundSlot, [Col1, CleanedCol2, Col3, Col4]) :-
-    tentativeUnbindSlotInCol(Col2, UnboundSlot, CleanedCol2).
-tentativeUnbindSlot([Col1, Col2, Col3, Col4], UnboundSlot, [Col1, Col2, CleanedCol3, Col4]) :-
-    tentativeUnbindSlotInCol(Col3, UnboundSlot, CleanedCol3).
-tentativeUnbindSlot([Col1, Col2, Col3, Col4], UnboundSlot, [Col1, Col2, Col3, CleanedCol4]) :-
-    tentativeUnbindSlotInCol(Col4, UnboundSlot, CleanedCol4).
+tentativeUnbindSlot(TechniqueCheck, [Col1, Col2, Col3, Col4], UnboundSlot, [CleanedCol1, Col2, Col3, Col4]) :-
+    tentativeUnbindSlotInCol(TechniqueCheck, Col1, UnboundSlot, CleanedCol1).
+tentativeUnbindSlot(TechniqueCheck, [Col1, Col2, Col3, Col4], UnboundSlot, [Col1, CleanedCol2, Col3, Col4]) :-
+    tentativeUnbindSlotInCol(TechniqueCheck, Col2, UnboundSlot, CleanedCol2).
+tentativeUnbindSlot(TechniqueCheck, [Col1, Col2, Col3, Col4], UnboundSlot, [Col1, Col2, CleanedCol3, Col4]) :-
+    tentativeUnbindSlotInCol(TechniqueCheck, Col3, UnboundSlot, CleanedCol3).
+tentativeUnbindSlot(TechniqueCheck, [Col1, Col2, Col3, Col4], UnboundSlot, [Col1, Col2, Col3, CleanedCol4]) :-
+    tentativeUnbindSlotInCol(TechniqueCheck, Col4, UnboundSlot, CleanedCol4).
 
 
-%tentativeUnbindSlotInCol(column(1, Technique,
-%		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
-%		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
-%                'C1-CSW-TECHNIQUE',
-%                column(1, _,
-%                	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
-%                       TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
-%    is_not_empty(Technique).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(includeTechnique, column(1, Technique,
+		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
+		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
+                'C1-CSW-TECHNIQUE',
+                column(1, _,
+                	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
+                       TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
+    is_not_empty(Technique).
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABA-CSS-TASK',
@@ -215,7 +233,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   _, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABA).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABA-CSS-TEAM',
@@ -223,7 +241,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   TaskABA, _, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABA).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABA-CSS-TEC1',
@@ -231,7 +249,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   TaskABA, TeamABA, _, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA1).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABA-CSS-TEC2',
@@ -239,7 +257,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, _,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA2).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABB-CSS-TASK',
@@ -247,7 +265,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        _, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABB).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABB-CSS-TEAM',
@@ -255,7 +273,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, _, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABB).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABB-CSS-TEC1',
@@ -263,7 +281,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, _, TechnologyABB2)) :-
     is_not_empty(TechnologyABB1).
-tentativeUnbindSlotInCol(column(1, Technique,
+tentativeUnbindSlotInCol(_, column(1, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C1-ABB-CSS-TEC2',
@@ -272,7 +290,7 @@ tentativeUnbindSlotInCol(column(1, Technique,
                        TaskABB, TeamABB, TechnologyABB1, _)) :-
     is_not_empty(TechnologyABB2).
 
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(includeTechnique, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-CSW-TECHNIQUE',
@@ -280,7 +298,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(Technique).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABA-CSS-TASK',
@@ -288,7 +306,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   _, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABA).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABA-CSS-TEAM',
@@ -296,7 +314,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, _, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABA).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABA-CSS-TEC1',
@@ -304,7 +322,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, TeamABA, _, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA1).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABA-CSS-TEC2',
@@ -312,7 +330,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, _,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA2).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABB-CSS-TASK',
@@ -320,7 +338,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        _, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABB).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABB-CSS-TEAM',
@@ -328,7 +346,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, _, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABB).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABB-CSS-TEC1',
@@ -336,7 +354,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, _, TechnologyABB2)) :-
     is_not_empty(TechnologyABB1).
-tentativeUnbindSlotInCol(column(2, Technique,
+tentativeUnbindSlotInCol(_, column(2, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C2-ABB-CSS-TEC2',
@@ -345,7 +363,7 @@ tentativeUnbindSlotInCol(column(2, Technique,
                        TaskABB, TeamABB, TechnologyABB1, _)) :-
     is_not_empty(TechnologyABB2).
 
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(includeTechnique, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-CSW-TECHNIQUE',
@@ -353,7 +371,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(Technique).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABA-CSS-TASK',
@@ -361,7 +379,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   _, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABA).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABA-CSS-TEAM',
@@ -369,7 +387,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, _, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABA).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABA-CSS-TEC1',
@@ -377,7 +395,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, _, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA1).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABA-CSS-TEC2',
@@ -385,7 +403,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, _,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA2).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABB-CSS-TASK',
@@ -393,7 +411,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        _, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABB).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABB-CSS-TEAM',
@@ -401,7 +419,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, _, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABB).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABB-CSS-TEC1',
@@ -409,7 +427,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, _, TechnologyABB2)) :-
     is_not_empty(TechnologyABB1).
-tentativeUnbindSlotInCol(column(3, Technique,
+tentativeUnbindSlotInCol(_, column(3, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C3-ABB-CSS-TEC2',
@@ -417,8 +435,7 @@ tentativeUnbindSlotInCol(column(3, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, _)) :-
     is_not_empty(TechnologyABB2).
-
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(includeTechnique, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-CSW-TECHNIQUE',
@@ -426,7 +443,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(Technique).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABA-CSS-TASK',
@@ -434,7 +451,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   _, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABA).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABA-CSS-TEAM',
@@ -442,7 +459,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, _, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABA).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABA-CSS-TEC1',
@@ -450,7 +467,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, TeamABA, _, TechnologyABA2,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA1).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABA-CSS-TEC2',
@@ -458,7 +475,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, _,
                        TaskABB, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TechnologyABA2).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABB-CSS-TASK',
@@ -466,7 +483,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        _, TeamABB, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TaskABB).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABB-CSS-TEAM',
@@ -474,7 +491,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, _, TechnologyABB1, TechnologyABB2)) :-
     is_not_empty(TeamABB).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABB-CSS-TEC1',
@@ -482,7 +499,7 @@ tentativeUnbindSlotInCol(column(4, Technique,
                 	   TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
                        TaskABB, TeamABB, _, TechnologyABB2)) :-
     is_not_empty(TechnologyABB1).
-tentativeUnbindSlotInCol(column(4, Technique,
+tentativeUnbindSlotInCol(_, column(4, Technique,
 		               TaskABA, TeamABA, TechnologyABA1, TechnologyABA2,
 		               TaskABB, TeamABB, TechnologyABB1, TechnologyABB2),
                 'C4-ABB-CSS-TEC2',
